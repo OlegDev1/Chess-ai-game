@@ -1,0 +1,42 @@
+.main {
+  display: grid;
+  grid-template-columns: 1fr 1200px 1fr;
+  height: 100vh;
+}
+.homeSection {
+  grid-column: 2/3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.homeSection__title {
+  color: var(--lightYellow);
+  font-family: var(--titleFont);
+  font-weight: 400;
+  font-size: 5rem;
+}
+.homeSection__gameSettings {
+  display: grid;
+  grid-template-rows: 60px fit-content(200px) fit-content(200px) fit-content(200px) 150px;
+  align-content: start;
+  background-color: var(--yellow);
+  width: 600px;
+  height: fit-content;
+  border-radius: var(--defaultRadius);
+}
+
+@media all and (max-width: 1200px) {
+  .main {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+  .homeSection {
+    grid-column: 1 / 3;
+  }
+  .homeSection__title {
+    font-size: 3rem;
+  }
+  .homeSection__gameSettings {
+    width: 100%;
+  }
+}

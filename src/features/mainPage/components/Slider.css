@@ -1,0 +1,30 @@
+.settings__limitSelect {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.slider {
+  height: 0.6rem;
+  border-radius: var(--defaultRadius);
+  background-color: #ffffff;
+  position: relative;
+  cursor: pointer;
+  touch-action: none;
+}
+.slider__pointer {
+  position: absolute;
+  height: 1.1rem;
+  width: 1.1rem;
+  border-radius: 50%;
+  top: -0.25rem;
+  background-color: black;
+  cursor: pointer;
+  touch-action: none;
+}
+.slider__pointerText {
+  position: absolute;
+  top: -2.7rem;
+  font-size: 26px;
+  font-weight: 500;
+}

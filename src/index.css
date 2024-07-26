@@ -1,0 +1,18 @@
+:root {
+  --mainDark: #111638;
+  --yellow: #dea259;
+  --lightYellow: #eec491;
+  --darkerYellow: #dc9947;
+  --yellowButtonBackground: #e3b172;
+  --defaultRadius: 5px;
+  --titleFont: "EB Garamond", serif;
+  --mainFont: "Roboto", sans-serif;
+}
+
+* {
+  font-family: var(--mainFont);
+}
+body {
+  background-color: var(--mainDark);
+  margin: 0;
+}

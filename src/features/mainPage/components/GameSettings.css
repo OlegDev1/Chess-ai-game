@@ -1,0 +1,56 @@
+.settings__modes {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  background-color: var(--mainDark);
+}
+.settings__mode {
+  flex: 1;
+  border: 0;
+  background-color: var(--darkerYellow);
+  border-bottom: 2px solid var(--mainDark);
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: var(--defaultRadius) var(--defaultRadius) 0 0;
+}
+.settings__mode.selected {
+  background-color: var(--yellow);
+  border-bottom: none;
+}
+.settings__mode:nth-child(1) {
+  border-right: 1px solid var(--mainDark);
+}
+.settings__mode:nth-child(2) {
+  border-left: 1px solid var(--mainDark);
+}
+.settings__time {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem 1rem;
+  border-bottom: 2px solid var(--mainDark);
+}
+.settings__time-title {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+}
+.time__buttons-limit {
+  height: 40px;
+  display: flex;
+  gap: 4px;
+}
+.time__button-limit {
+  transition: all 0.3s;
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+  border-radius: var(--defaultRadius);
+  border: 0;
+  background-color: var(--yellowButtonBackground);
+  cursor: pointer;
+}
+.time__button-limit.selected {
+  transition: all 0.3s;
+  background-color: #ffffff;
+}

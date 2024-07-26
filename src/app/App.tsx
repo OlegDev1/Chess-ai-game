@@ -1,3 +1,10 @@
+import { Routes, Route } from "react-router-dom";
+import HomeRoute from "./routes/HomeRoute";
+
 export default function App() {
-  return <></>;
+  return (
+    <Routes>
+      <Route path="/" element={<HomeRoute />} />
+    </Routes>
+  );
 }

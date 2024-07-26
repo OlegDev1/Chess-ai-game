@@ -1,0 +1,14 @@
+.timeVariants {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.timeVariants__variant {
+  background-color: var(--yellowButtonBackground);
+  border: none;
+  padding: 0.45rem;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
