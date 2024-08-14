@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Chess } from "chess.js";
 import "./ChessBoard.css";
+import { Chessboard } from "react-chessboard";
 
 export default function ChessBoard() {
   const [chessBoard, setChessBoard] = useState(null);
@@ -50,7 +51,7 @@ export default function ChessBoard() {
       Data.split(" ").forEach((e) => {
         chess.move(e);
       });
-      setChessBoard(chess.board());
+      setChessBoard(chess.fen());
     };
 
     stream.then(readStream(onMessage));
@@ -59,33 +60,7 @@ export default function ChessBoard() {
 
   return (
     <div className="chessWrapper">
-      <div className="chessBoard">
-        {[...Array(64)].map((e, i) => {
-          const row = Math.floor(i / 8);
-          const col = i % 8;
-          const isBlack = (row + col) % 2 === 1;
-          const color = isBlack ? "black" : "white";
-          return <div className={`boardSquare ${color}`}></div>;
-        })}
-      </div>
-      <div className="chessPieces">
-        {chessBoard.map((row, i) => {
-          return row.map((elem, k) => {
-            if (!elem) return <></>;
-            return (
-              <div
-                className="chessPiece"
-                style={{
-                  top: 100 * i + 10 + "px",
-                  left: 100 * k + 10 + "px",
-                  transition: "top 0.7s, left 0.7s",
-                }}>
-                {elem.type}
-              </div>
-            );
-          });
-        })}
-      </div>
+      <Chessboard position={chessBoard} />
     </div>
   );
 }
