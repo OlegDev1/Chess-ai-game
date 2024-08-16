@@ -9,8 +9,9 @@ export default function ChessBoard() {
   const [chessBoardFEN, setChessBoardFEN] = useState(null);
   const [possibleMoves, setPossibleMoves] = useState({});
   const [isCheckStyle, setIsCheckStyle] = useState({});
+  const [lastMoveStyle, setLastMoveStyle] = useState({});
   const [focus, setFocus] = useState(0);
-  const gameId = "KE3VgAEt";
+  const gameId = "DALCjC9u";
   useEffect(() => {
     window.onfocus = () => setFocus((e) => e + 1);
   }, []);
@@ -55,10 +56,18 @@ export default function ChessBoard() {
         moves.split(" ").forEach((e) => {
           chess.move(e);
         });
+        let lastMove = _.last(moves.split(" "));
+        lastMove = [lastMove.slice(0, 2), lastMove.slice(2, 4)];
+        const style = {};
+        for (const move of lastMove) {
+          style[move] = { background: "rgb(0,204,102, 0.3)" };
+        }
+        setLastMoveStyle(style);
       }
       if (chess.isCheck()) {
-        const kingPiece = _.flatten(chess.board()).find(
-          (piece) => piece.type === "k" && piece.color === chess.turn()
+        const pieces = _.flatten(chess.board());
+        const kingPiece = pieces.find(
+          (piece) => piece && piece.type === "k" && piece.color === chess.turn()
         ).square;
         console.log(kingPiece);
         setIsCheckStyle({
@@ -86,6 +95,7 @@ export default function ChessBoard() {
           from: fromSquare,
           to: square,
         });
+
         axios.post(
           `https://lichess.org/api/board/game/${gameId}/move/${fromSquare + square}`,
           {},
@@ -95,6 +105,12 @@ export default function ChessBoard() {
             },
           }
         );
+        const lastMove = [fromSquare, square];
+        const style = {};
+        for (const move of lastMove) {
+          style[move] = { background: "rgb(0,204,102, 0.3)" };
+        }
+        setLastMoveStyle(style);
         setChessBoardFEN(chess.fen());
         setPossibleMoves({});
         return true;
@@ -149,6 +165,7 @@ export default function ChessBoard() {
         from: sourceSquare,
         to: targetSquare,
       });
+
       axios.post(
         `https://lichess.org/api/board/game/${gameId}/move/${sourceSquare + targetSquare}`,
         {},
@@ -158,6 +175,13 @@ export default function ChessBoard() {
           },
         }
       );
+
+      const lastMove = [sourceSquare, targetSquare];
+      const style = {};
+      for (const move of lastMove) {
+        style[move] = { background: "rgb(0,204,102, 0.3)" };
+      }
+      setLastMoveStyle(style);
     } catch (e) {
       return false;
     }
@@ -184,6 +208,7 @@ export default function ChessBoard() {
     const chess = new Chess(chessBoardFEN);
     try {
       chess.move({ from: promoteFromSquare, to: promoteToSquare, promotion: promotionPiece });
+
       axios.post(
         `https://lichess.org/api/board/game/${gameId}/move/${
           promoteFromSquare + promoteToSquare + promotionPiece
@@ -195,6 +220,13 @@ export default function ChessBoard() {
           },
         }
       );
+
+      const lastMove = [promoteFromSquare, promoteToSquare];
+      const style = {};
+      for (const move of lastMove) {
+        style[move] = { background: "rgb(0,204,102, 0.3)" };
+      }
+      setLastMoveStyle(style);
       setChessBoardFEN(chess.fen());
       setPossibleMoves({});
       return true;
@@ -213,7 +245,7 @@ export default function ChessBoard() {
         onPieceDrop={handlePieceDrop}
         onPromotionCheck={handlePromotionCheck}
         onPromotionPieceSelect={handlePromotion}
-        customSquareStyles={{ ...possibleMoves, ...isCheckStyle }}
+        customSquareStyles={{ ...lastMoveStyle, ...isCheckStyle, ...possibleMoves }}
       />
     </div>
   );
