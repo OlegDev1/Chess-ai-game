@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Chess } from "chess.js";
+import _ from "lodash";
 import axios from "axios";
 import "./ChessBoard.css";
 import { Chessboard } from "react-chessboard";
@@ -7,6 +8,7 @@ import { Chessboard } from "react-chessboard";
 export default function ChessBoard() {
   const [chessBoardFEN, setChessBoardFEN] = useState(null);
   const [possibleMoves, setPossibleMoves] = useState({});
+  const [isCheckStyle, setIsCheckStyle] = useState({});
   const [focus, setFocus] = useState(0);
   const gameId = "KE3VgAEt";
   useEffect(() => {
@@ -48,11 +50,25 @@ export default function ChessBoard() {
 
     const onMessage = (data) => {
       const chess = new Chess();
-      const Data = data.state ? data.state.moves : data.moves;
-      if (Data) {
-        Data.split(" ").forEach((e) => {
+      const moves = data.state ? data.state.moves : data.moves;
+      if (moves) {
+        moves.split(" ").forEach((e) => {
           chess.move(e);
         });
+      }
+      if (chess.isCheck()) {
+        const kingPiece = _.flatten(chess.board()).find(
+          (piece) => piece.type === "k" && piece.color === chess.turn()
+        ).square;
+        console.log(kingPiece);
+        setIsCheckStyle({
+          [kingPiece]: {
+            background:
+              "radial-gradient(ellipse at center, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%)",
+          },
+        });
+      } else {
+        setIsCheckStyle({});
       }
       setChessBoardFEN(chess.fen());
     };
@@ -183,7 +199,6 @@ export default function ChessBoard() {
       setPossibleMoves({});
       return true;
     } catch (e) {
-      console.log(e);
       return false;
     }
   }
@@ -198,7 +213,7 @@ export default function ChessBoard() {
         onPieceDrop={handlePieceDrop}
         onPromotionCheck={handlePromotionCheck}
         onPromotionPieceSelect={handlePromotion}
-        customSquareStyles={{ ...possibleMoves }}
+        customSquareStyles={{ ...possibleMoves, ...isCheckStyle }}
       />
     </div>
   );
