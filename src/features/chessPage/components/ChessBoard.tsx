@@ -11,7 +11,7 @@ export default function ChessBoard() {
   const [isCheckStyle, setIsCheckStyle] = useState({});
   const [lastMoveStyle, setLastMoveStyle] = useState({});
   const [focus, setFocus] = useState(0);
-  const gameId = "DALCjC9u";
+  const gameId = "wArpuAv2";
   useEffect(() => {
     window.onfocus = () => setFocus((e) => e + 1);
   }, []);
@@ -69,7 +69,6 @@ export default function ChessBoard() {
         const kingPiece = pieces.find(
           (piece) => piece && piece.type === "k" && piece.color === chess.turn()
         ).square;
-        console.log(kingPiece);
         setIsCheckStyle({
           [kingPiece]: {
             background:
@@ -113,6 +112,7 @@ export default function ChessBoard() {
         setLastMoveStyle(style);
         setChessBoardFEN(chess.fen());
         setPossibleMoves({});
+        setIsCheckStyle({});
         return true;
       } catch (e) {
         return false;
@@ -187,6 +187,7 @@ export default function ChessBoard() {
     }
     setChessBoardFEN(chess.fen());
     setPossibleMoves({});
+    setIsCheckStyle({});
     return true;
   }
   function handlePromotionCheck(sourceSquare, targetSquare) {
@@ -229,6 +230,7 @@ export default function ChessBoard() {
       setLastMoveStyle(style);
       setChessBoardFEN(chess.fen());
       setPossibleMoves({});
+      setIsCheckStyle({});
       return true;
     } catch (e) {
       return false;
