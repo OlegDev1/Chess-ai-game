@@ -8,6 +8,7 @@ export default function ChessBoard() {
   const [chessBoardFEN, setChessBoardFEN] = useState(null);
   const [possibleMoves, setPossibleMoves] = useState({});
   const [focus, setFocus] = useState(0);
+  const gameId = "KE3VgAEt";
   useEffect(() => {
     window.onfocus = () => setFocus((e) => e + 1);
   }, []);
@@ -39,7 +40,7 @@ export default function ChessBoard() {
       return loop();
     };
 
-    const stream = fetch("https://lichess.org/api/board/game/stream/UwdOM1mE", {
+    const stream = fetch(`https://lichess.org/api/board/game/stream/${gameId}`, {
       headers: {
         Authorization: "Bearer lip_1PxEoSykBCqOIAXnLVXc",
       },
@@ -62,18 +63,15 @@ export default function ChessBoard() {
   function handleSquareClick(square) {
     if (!chessBoardFEN) return false;
     const chess = new Chess(chessBoardFEN);
-
+    const fromSquare = Object.keys(possibleMoves)[0];
     if (Object.keys(possibleMoves).slice(1).includes(square)) {
-      console.log("move");
       try {
         chess.move({
-          from: Object.keys(possibleMoves)[0],
+          from: fromSquare,
           to: square,
         });
         axios.post(
-          `https://lichess.org/api/board/game/UwdOM1mE/move/${
-            Object.keys(possibleMoves)[0] + square
-          }`,
+          `https://lichess.org/api/board/game/${gameId}/move/${fromSquare + square}`,
           {},
           {
             headers: {
@@ -92,9 +90,8 @@ export default function ChessBoard() {
     const moves = chess.moves({ square: square, verbose: true });
     if (moves.length == 0) {
       setPossibleMoves({});
-      return;
+      return false;
     }
-
     const styles = { [square]: { backgroundColor: "rgba(255, 255, 0, 0.4)" } };
     for (const move of moves) {
       styles[move.to] = {
@@ -137,7 +134,7 @@ export default function ChessBoard() {
         to: targetSquare,
       });
       axios.post(
-        `https://lichess.org/api/board/game/UwdOM1mE/move/${sourceSquare + targetSquare}`,
+        `https://lichess.org/api/board/game/${gameId}/move/${sourceSquare + targetSquare}`,
         {},
         {
           headers: {
@@ -152,6 +149,19 @@ export default function ChessBoard() {
     setPossibleMoves({});
     return true;
   }
+  function handlePromotionCheck(sourceSquare, targetSquare) {
+    const chess = new Chess(chessBoardFEN);
+    const sourceSquareData = chess.get(sourceSquare);
+
+    const isPossibleMove = Object.keys(possibleMoves).slice(1).includes(targetSquare);
+    const isPromotionMove =
+      (sourceSquareData.color === "w" &&
+        sourceSquareData.type === "p" &&
+        targetSquare[1] === "8") ||
+      (sourceSquareData.color === "b" && sourceSquareData.type === "p" && targetSquare[1] === "1");
+    if (isPossibleMove && isPromotionMove) return true;
+    return false;
+  }
   function handlePromotion(piece, promoteFromSquare, promoteToSquare) {
     const promotionPiece = piece.slice(1).toLowerCase();
 
@@ -159,7 +169,7 @@ export default function ChessBoard() {
     try {
       chess.move({ from: promoteFromSquare, to: promoteToSquare, promotion: promotionPiece });
       axios.post(
-        `https://lichess.org/api/board/game/UwdOM1mE/move/${
+        `https://lichess.org/api/board/game/${gameId}/move/${
           promoteFromSquare + promoteToSquare + promotionPiece
         }`,
         {},
@@ -170,8 +180,10 @@ export default function ChessBoard() {
         }
       );
       setChessBoardFEN(chess.fen());
+      setPossibleMoves({});
       return true;
     } catch (e) {
+      console.log(e);
       return false;
     }
   }
@@ -184,8 +196,9 @@ export default function ChessBoard() {
         onSquareClick={handleSquareClick}
         onPieceDragBegin={handlePossibleMovesDrag}
         onPieceDrop={handlePieceDrop}
-        customSquareStyles={{ ...possibleMoves }}
+        onPromotionCheck={handlePromotionCheck}
         onPromotionPieceSelect={handlePromotion}
+        customSquareStyles={{ ...possibleMoves }}
       />
     </div>
   );
