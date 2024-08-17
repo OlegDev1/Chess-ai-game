@@ -4,6 +4,8 @@ import axios from "axios";
 import "./ChessBoard.css";
 import { Chessboard } from "react-chessboard";
 import useStreamGame from "../hooks/useStreamGame";
+import { PromotionPieceOption, Piece, Square } from "react-chessboard/dist/chessboard/types";
+type MoveStyleType = { [key: string]: { background: string; borderRadius?: string } };
 
 export default function ChessBoard() {
   const [chessBoardFEN, setChessBoardFEN] = useState<null | string>(null);
@@ -15,11 +17,15 @@ export default function ChessBoard() {
 
   useStreamGame({ gameId, setLastMoveStyle, setIsCheckStyle, setChessBoardFEN, lichessApi });
 
-  function handleSquareClick(square) {
+  function handleSquareClick(square: Square) {
     if (!chessBoardFEN) return false;
+
     const chess = new Chess(chessBoardFEN);
-    const fromSquare = Object.keys(possibleMoves)[0];
+
+    //If the click is on one of the possible moves
     if (Object.keys(possibleMoves).slice(1).includes(square)) {
+      const fromSquare = Object.keys(possibleMoves)[0];
+
       try {
         chess.move({
           from: fromSquare,
@@ -35,8 +41,9 @@ export default function ChessBoard() {
             },
           }
         );
+
         const lastMove = [fromSquare, square];
-        const style = {};
+        const style: MoveStyleType = {};
         for (const move of lastMove) {
           style[move] = { background: "rgb(0,204,102, 0.3)" };
         }
@@ -50,12 +57,13 @@ export default function ChessBoard() {
       }
     }
 
+    //If the click is not on one of the possible moves - it get's the possible moves of the current square
     const moves = chess.moves({ square: square, verbose: true });
     if (moves.length == 0) {
       setPossibleMoves({});
       return false;
     }
-    const styles = { [square]: { backgroundColor: "rgba(255, 255, 0, 0.4)" } };
+    const styles: MoveStyleType = { [square]: { background: "rgba(255, 255, 0, 0.4)" } };
     for (const move of moves) {
       styles[move.to] = {
         background:
@@ -67,8 +75,9 @@ export default function ChessBoard() {
     }
     setPossibleMoves(styles);
   }
-  function handlePossibleMovesDrag(piece, sourceSquare) {
+  function handlePieceDragBegin(piece: Piece, sourceSquare: Square) {
     if (!chessBoardFEN) return false;
+
     const chess = new Chess(chessBoardFEN);
     const moves = chess.moves({ square: sourceSquare, verbose: true });
     if (moves.length == 0) {
@@ -76,7 +85,7 @@ export default function ChessBoard() {
       return;
     }
 
-    const styles = { [sourceSquare]: { backgroundColor: "rgba(255, 255, 0, 0.4)" } };
+    const styles: MoveStyleType = { [sourceSquare]: { background: "rgba(255, 255, 0, 0.4)" } };
     for (const move of moves) {
       styles[move.to] = {
         background:
@@ -88,8 +97,9 @@ export default function ChessBoard() {
     }
     setPossibleMoves(styles);
   }
-  function handlePieceDrop(sourceSquare, targetSquare) {
+  function handlePieceDrop(sourceSquare: Square, targetSquare: Square) {
     if (!chessBoardFEN) return false;
+
     const chess = new Chess(chessBoardFEN);
     try {
       chess.move({
@@ -108,20 +118,22 @@ export default function ChessBoard() {
       );
 
       const lastMove = [sourceSquare, targetSquare];
-      const style = {};
+      const style: MoveStyleType = {};
       for (const move of lastMove) {
         style[move] = { background: "rgb(0,204,102, 0.3)" };
       }
       setLastMoveStyle(style);
+      setChessBoardFEN(chess.fen());
+      setPossibleMoves({});
+      setIsCheckStyle({});
+      return true;
     } catch (e) {
       return false;
     }
-    setChessBoardFEN(chess.fen());
-    setPossibleMoves({});
-    setIsCheckStyle({});
-    return true;
   }
-  function handlePromotionCheck(sourceSquare, targetSquare) {
+  function handlePromotionCheck(sourceSquare: Square, targetSquare: Square) {
+    if (!chessBoardFEN) return false;
+
     const chess = new Chess(chessBoardFEN);
     const sourceSquareData = chess.get(sourceSquare);
 
@@ -131,13 +143,20 @@ export default function ChessBoard() {
         sourceSquareData.type === "p" &&
         targetSquare[1] === "8") ||
       (sourceSquareData.color === "b" && sourceSquareData.type === "p" && targetSquare[1] === "1");
+
     if (isPossibleMove && isPromotionMove) return true;
     return false;
   }
-  function handlePromotion(piece, promoteFromSquare, promoteToSquare) {
-    const promotionPiece = piece.slice(1).toLowerCase();
+  function handlePromotionPieceSelect(
+    piece?: PromotionPieceOption,
+    promoteFromSquare?: Square,
+    promoteToSquare?: Square
+  ) {
+    if (!chessBoardFEN || !piece || !promoteFromSquare || !promoteToSquare) return false;
 
+    const promotionPiece = piece.slice(1).toLowerCase();
     const chess = new Chess(chessBoardFEN);
+
     try {
       chess.move({ from: promoteFromSquare, to: promoteToSquare, promotion: promotionPiece });
 
@@ -154,7 +173,7 @@ export default function ChessBoard() {
       );
 
       const lastMove = [promoteFromSquare, promoteToSquare];
-      const style = {};
+      const style: MoveStyleType = {};
       for (const move of lastMove) {
         style[move] = { background: "rgb(0,204,102, 0.3)" };
       }
@@ -174,10 +193,10 @@ export default function ChessBoard() {
       <Chessboard
         position={chessBoardFEN}
         onSquareClick={handleSquareClick}
-        onPieceDragBegin={handlePossibleMovesDrag}
+        onPieceDragBegin={handlePieceDragBegin}
         onPieceDrop={handlePieceDrop}
         onPromotionCheck={handlePromotionCheck}
-        onPromotionPieceSelect={handlePromotion}
+        onPromotionPieceSelect={handlePromotionPieceSelect}
         customSquareStyles={{ ...lastMoveStyle, ...isCheckStyle, ...possibleMoves }}
       />
     </div>

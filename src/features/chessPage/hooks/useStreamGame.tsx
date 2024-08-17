@@ -9,6 +9,8 @@ type useStreamGameProps = {
   setIsCheckStyle: React.Dispatch<React.SetStateAction<object>>;
   setChessBoardFEN: React.Dispatch<React.SetStateAction<null | string>>;
 };
+type ResponseType = { state?: { moves: string }; moves: string };
+type StyleType = { [key: string]: { background: string } };
 
 export default function useStreamGame({
   lichessApi,
@@ -26,7 +28,7 @@ export default function useStreamGame({
 
   //Uses http streaming to get the data about the game from the api
   useEffect(() => {
-    const readStream = (processLine: (arg0: unknown) => void) => (response: Response) => {
+    const readStream = (processLine: (arg0: ResponseType) => void) => (response: Response) => {
       const stream = response.body!.getReader();
       const matcher = /\r?\n/;
       const decoder = new TextDecoder();
@@ -58,9 +60,9 @@ export default function useStreamGame({
       },
     });
 
-    const onMessage = (data) => {
+    const onMessage = (response: ResponseType) => {
       const chess = new Chess();
-      const moves = data.state ? data.state.moves : data.moves;
+      const moves = response.state ? response.state.moves : response.moves;
 
       //If there are moves on the board
       if (moves) {
@@ -72,7 +74,7 @@ export default function useStreamGame({
         if (!lastTwoMoves) return;
         const lastMoves = [lastTwoMoves.slice(0, 2), lastTwoMoves.slice(2, 4)];
 
-        const style: { [key: string]: { background: string } } = {};
+        const style: StyleType = {};
         for (const move of lastMoves) {
           style[move] = { background: "rgb(0,204,102, 0.3)" };
         }
