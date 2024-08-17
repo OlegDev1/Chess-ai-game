@@ -1,88 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Chess } from "chess.js";
-import _ from "lodash";
 import axios from "axios";
 import "./ChessBoard.css";
 import { Chessboard } from "react-chessboard";
+import useStreamGame from "../hooks/useStreamGame";
 
 export default function ChessBoard() {
-  const [chessBoardFEN, setChessBoardFEN] = useState(null);
-  const [possibleMoves, setPossibleMoves] = useState({});
-  const [isCheckStyle, setIsCheckStyle] = useState({});
-  const [lastMoveStyle, setLastMoveStyle] = useState({});
-  const [focus, setFocus] = useState(0);
-  const gameId = "wArpuAv2";
-  useEffect(() => {
-    window.onfocus = () => setFocus((e) => e + 1);
-  }, []);
+  const [chessBoardFEN, setChessBoardFEN] = useState<null | string>(null);
+  const [possibleMoves, setPossibleMoves] = useState<object>({});
+  const [isCheckStyle, setIsCheckStyle] = useState<object>({});
+  const [lastMoveStyle, setLastMoveStyle] = useState<object>({});
+  const lichessApi = "lip_1PxEoSykBCqOIAXnLVXc";
+  const gameId = "J1tPD7V8";
 
-  useEffect(() => {
-    const readStream = (processLine) => (response) => {
-      const stream = response.body.getReader();
-      const matcher = /\r?\n/;
-      const decoder = new TextDecoder();
-      let buf = "";
-
-      const loop = () =>
-        stream.read().then(({ done, value }) => {
-          if (done) {
-            if (buf.length > 0) processLine(JSON.parse(buf));
-          } else {
-            const chunk = decoder.decode(value, {
-              stream: true,
-            });
-            buf += chunk;
-
-            const parts = buf.split(matcher);
-            buf = parts.pop();
-            for (const i of parts.filter((p) => p)) processLine(JSON.parse(i));
-            return loop();
-          }
-        });
-
-      return loop();
-    };
-
-    const stream = fetch(`https://lichess.org/api/board/game/stream/${gameId}`, {
-      headers: {
-        Authorization: "Bearer lip_1PxEoSykBCqOIAXnLVXc",
-      },
-    });
-
-    const onMessage = (data) => {
-      const chess = new Chess();
-      const moves = data.state ? data.state.moves : data.moves;
-      if (moves) {
-        moves.split(" ").forEach((e) => {
-          chess.move(e);
-        });
-        let lastMove = _.last(moves.split(" "));
-        lastMove = [lastMove.slice(0, 2), lastMove.slice(2, 4)];
-        const style = {};
-        for (const move of lastMove) {
-          style[move] = { background: "rgb(0,204,102, 0.3)" };
-        }
-        setLastMoveStyle(style);
-      }
-      if (chess.isCheck()) {
-        const pieces = _.flatten(chess.board());
-        const kingPiece = pieces.find(
-          (piece) => piece && piece.type === "k" && piece.color === chess.turn()
-        ).square;
-        setIsCheckStyle({
-          [kingPiece]: {
-            background:
-              "radial-gradient(ellipse at center, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%)",
-          },
-        });
-      } else {
-        setIsCheckStyle({});
-      }
-      setChessBoardFEN(chess.fen());
-    };
-
-    stream.then(readStream(onMessage));
-  }, [focus]);
+  useStreamGame({ gameId, setLastMoveStyle, setIsCheckStyle, setChessBoardFEN, lichessApi });
 
   function handleSquareClick(square) {
     if (!chessBoardFEN) return false;
@@ -100,7 +31,7 @@ export default function ChessBoard() {
           {},
           {
             headers: {
-              Authorization: "Bearer lip_1PxEoSykBCqOIAXnLVXc",
+              Authorization: `Bearer ${lichessApi}`,
             },
           }
         );
@@ -171,7 +102,7 @@ export default function ChessBoard() {
         {},
         {
           headers: {
-            Authorization: "Bearer lip_1PxEoSykBCqOIAXnLVXc",
+            Authorization: `Bearer ${lichessApi}`,
           },
         }
       );
@@ -217,7 +148,7 @@ export default function ChessBoard() {
         {},
         {
           headers: {
-            Authorization: "Bearer lip_1PxEoSykBCqOIAXnLVXc",
+            Authorization: `Bearer ${lichessApi}`,
           },
         }
       );
