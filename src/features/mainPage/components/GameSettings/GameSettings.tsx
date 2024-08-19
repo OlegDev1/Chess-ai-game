@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { GameMode } from "../types/gameMode.interface";
-import { GameTimeMode } from "../types/gameTimeMode.interface";
-import { Strength } from "../types/strength.interface";
-import { Side } from "../types/side.interface";
-import Slider from "./Slider";
-import TimeVariants from "./TimeVariants";
-import StrengthPicker from "./StrengthPicker";
-import SidePicker from "./SidePicker";
-import StartGame from "./StartGame";
+import { GameMode } from "../../types/gameMode.types";
+import { GameTimeMode } from "../../types/gameTimeMode.types";
+import { Strength } from "../../types/strength.types";
+import { Side } from "../../types/side.types";
+import Slider from "../Slider/Slider";
+import TimeVariants from "../TimeVariants/TimeVariants";
+import StrengthPicker from "../StrengthPicker/StrengthPicker";
+import SidePicker from "../SidePicker/SidePicker";
+import StartGame from "../StartGame/StartGame";
 import "./GameSettings.css";
 
 export default function GameSettings() {

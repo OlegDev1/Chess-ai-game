@@ -1,6 +1,6 @@
 import "./Slider.css";
 import { useState, useRef } from "react";
-import useSlider from "../hooks/useSlider";
+import useSlider from "../../hooks/useSlider";
 
 type SliderProps = {
   limitedGameMinutes: number;

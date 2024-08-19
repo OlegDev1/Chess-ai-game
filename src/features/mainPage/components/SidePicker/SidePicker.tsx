@@ -1,5 +1,5 @@
-import { Side } from "../types/side.interface";
-import { BlackSideSVG, WhiteSideSVG, RandomSideSVG } from "../../../assets/icons/chessSide";
+import { Side } from "../../types/side.types";
+import { BlackSideSVG, WhiteSideSVG, RandomSideSVG } from "../../../../components/SVG/chessSide";
 import "./SidePicker.css";
 
 type SidePickerProps = {

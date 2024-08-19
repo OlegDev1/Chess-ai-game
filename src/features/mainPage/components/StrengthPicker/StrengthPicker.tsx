@@ -1,5 +1,5 @@
 import "./StrengthPicker.css";
-import { Strength } from "../types/strength.interface";
+import { Strength } from "../../types/strength.types";
 
 type StrengthPickerProps = {
   strength: Strength;

@@ -1,5 +1,5 @@
 import "./Home.css";
-import GameSettings from "./GameSettings";
+import GameSettings from "../GameSettings/GameSettings";
 
 export default function Home() {
   return (

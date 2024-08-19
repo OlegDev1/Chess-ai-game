@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
-import GameSettings from "../components/GameSettings";
+import GameSettings from "../components/GameSettings/GameSettings";
 
 beforeEach(() => render(<GameSettings />));
 
