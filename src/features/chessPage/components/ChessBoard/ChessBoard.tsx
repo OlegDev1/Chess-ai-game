@@ -3,9 +3,9 @@ import { Chess } from "chess.js";
 import axios from "axios";
 import "./ChessBoard.css";
 import { Chessboard } from "react-chessboard";
-import useStreamGame from "../hooks/useStreamGame";
 import { PromotionPieceOption, Piece, Square } from "react-chessboard/dist/chessboard/types";
-type MoveStyleType = { [key: string]: { background: string; borderRadius?: string } };
+import useStreamGame from "../../hooks/useStreamGame";
+import { MoveStyleType } from "../../types/MoveStyleType.types";
 
 export default function ChessBoard() {
   const [chessBoardFEN, setChessBoardFEN] = useState<null | string>(null);
@@ -25,7 +25,6 @@ export default function ChessBoard() {
     //If the click is on one of the possible moves
     if (Object.keys(possibleMoves).slice(1).includes(square)) {
       const fromSquare = Object.keys(possibleMoves)[0];
-
       try {
         chess.move({
           from: fromSquare,
@@ -57,12 +56,13 @@ export default function ChessBoard() {
       }
     }
 
-    //If the click is not on one of the possible moves - it get's the possible moves of the current square
+    //If the click is not on one of the possible moves - this code get's the possible moves of the current square
     const moves = chess.moves({ square: square, verbose: true });
     if (moves.length == 0) {
       setPossibleMoves({});
       return false;
     }
+
     const styles: MoveStyleType = { [square]: { background: "rgba(255, 255, 0, 0.4)" } };
     for (const move of moves) {
       styles[move.to] = {
@@ -75,7 +75,7 @@ export default function ChessBoard() {
     }
     setPossibleMoves(styles);
   }
-  function handlePieceDragBegin(piece: Piece, sourceSquare: Square) {
+  function handlePieceDragBegin(_piece: Piece, sourceSquare: Square) {
     if (!chessBoardFEN) return false;
 
     const chess = new Chess(chessBoardFEN);
@@ -189,7 +189,7 @@ export default function ChessBoard() {
 
   if (!chessBoardFEN) return <></>;
   return (
-    <div className="chessWrapper">
+    <div className="chessWrapper" data-testid="chessboard">
       <Chessboard
         position={chessBoardFEN}
         onSquareClick={handleSquareClick}
