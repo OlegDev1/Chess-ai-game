@@ -18,7 +18,7 @@ export default function useSlider({
   setLimitedGameMinutes,
   sliderElement,
   pointerElement,
-  pointerTextElement,
+  pointerTextElement
 }: useSliderProps) {
   const [resize, setResize] = useState(0);
 
@@ -91,7 +91,7 @@ export default function useSlider({
     sliderElement,
     pointerElement,
     pointerTextElement,
-    setIsPointerMouseDown,
+    setIsPointerMouseDown
   ]);
 
   //Updates the position of the pointer and the text above it, when the limitedGameMinutes or window size changes.

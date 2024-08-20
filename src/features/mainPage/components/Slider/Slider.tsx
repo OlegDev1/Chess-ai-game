@@ -19,7 +19,7 @@ export default function Slider({ limitedGameMinutes, setLimitedGameMinutes }: Sl
     setLimitedGameMinutes,
     sliderElement,
     pointerElement,
-    pointerTextElement,
+    pointerTextElement
   });
 
   return (
