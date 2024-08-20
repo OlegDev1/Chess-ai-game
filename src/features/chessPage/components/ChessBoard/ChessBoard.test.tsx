@@ -19,5 +19,7 @@ beforeEach(() => {
 });
 
 describe("handleSquareClick", () => {
-  test("Returns true when the valid move is made", () => {});
+  test("Returns true when the valid move is made", () => {
+    console.log(screen.debug());
+  });
 });
