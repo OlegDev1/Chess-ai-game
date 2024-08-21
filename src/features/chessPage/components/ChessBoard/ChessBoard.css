@@ -1,0 +1,23 @@
+.chessWrapper {
+  position: relative;
+  margin: auto auto;
+  width: 800px;
+  height: 800px;
+}
+.chessBoard {
+  display: grid;
+  grid-template-columns: repeat(8, 100px);
+  grid-template-rows: repeat(8, 100px);
+}
+.boardSquare.white {
+  background-color: white;
+}
+.boardSquare.black {
+  background-color: black;
+}
+.chessPiece {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background-color: red;
+}
