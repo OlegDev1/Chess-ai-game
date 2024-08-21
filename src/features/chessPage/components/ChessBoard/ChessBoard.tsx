@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Chess } from "chess.js";
-import axios from "axios";
+import { apiPostRequest } from "../../../../utils/apiClient";
 import "./ChessBoard.css";
 import { Chessboard } from "react-chessboard";
 import { PromotionPieceOption, Piece, Square } from "react-chessboard/dist/chessboard/types";
@@ -31,15 +31,7 @@ export default function ChessBoard() {
           to: square,
         });
 
-        axios.post(
-          `https://lichess.org/api/board/game/${gameId}/move/${fromSquare + square}`,
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${lichessApi}`,
-            },
-          }
-        );
+        apiPostRequest(`/api/board/game/${gameId}/move/${fromSquare + square}`);
 
         const lastMove = [fromSquare, square];
         const style: MoveStyleType = {};
@@ -107,15 +99,7 @@ export default function ChessBoard() {
         to: targetSquare,
       });
 
-      axios.post(
-        `https://lichess.org/api/board/game/${gameId}/move/${sourceSquare + targetSquare}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${lichessApi}`,
-          },
-        }
-      );
+      apiPostRequest(`/api/board/game/${gameId}/move/${sourceSquare + targetSquare}`);
 
       const lastMove = [sourceSquare, targetSquare];
       const style: MoveStyleType = {};
@@ -160,16 +144,8 @@ export default function ChessBoard() {
     try {
       chess.move({ from: promoteFromSquare, to: promoteToSquare, promotion: promotionPiece });
 
-      axios.post(
-        `https://lichess.org/api/board/game/${gameId}/move/${
-          promoteFromSquare + promoteToSquare + promotionPiece
-        }`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${lichessApi}`,
-          },
-        }
+      apiPostRequest(
+        `/api/board/game/${gameId}/move/${promoteFromSquare + promoteToSquare + promotionPiece}`
       );
 
       const lastMove = [promoteFromSquare, promoteToSquare];
