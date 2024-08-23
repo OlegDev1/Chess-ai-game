@@ -1,15 +1,11 @@
 import axios from "axios";
 
-export function apiPostRequest(path: string) {
+export function apiPostRequest(path: string, params?: object) {
   const lichessApi = "lip_1PxEoSykBCqOIAXnLVXc";
 
-  axios.post(
-    "https://lichess.org" + path,
-    {},
-    {
-      headers: {
-        Authorization: `Bearer ${lichessApi}`
-      }
+  return axios.post("https://lichess.org" + path, params, {
+    headers: {
+      Authorization: `Bearer ${lichessApi}`
     }
-  );
+  });
 }

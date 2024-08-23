@@ -3,6 +3,8 @@ import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import GameSettings from "../components/GameSettings/GameSettings";
 
+jest.mock("react-router-dom");
+
 beforeEach(() => render(<GameSettings />));
 
 describe("Change the modes", () => {

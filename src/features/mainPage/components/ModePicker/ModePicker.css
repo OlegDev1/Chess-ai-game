@@ -1,0 +1,25 @@
+.settings__modes {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  background-color: var(--mainDark);
+}
+.settings__mode {
+  flex: 1;
+  border: 0;
+  background-color: var(--darkerYellow);
+  border-bottom: 2px solid var(--mainDark);
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: var(--defaultRadius) var(--defaultRadius) 0 0;
+}
+.settings__mode.selected {
+  background-color: var(--yellow);
+  border-bottom: none;
+}
+.settings__mode:nth-child(1) {
+  border-right: 1px solid var(--mainDark);
+}
+.settings__mode:nth-child(2) {
+  border-left: 1px solid var(--mainDark);
+}

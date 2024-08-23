@@ -3,12 +3,13 @@ import { GameMode } from "../../types/gameMode.types";
 import { GameTimeMode } from "../../types/gameTimeMode.types";
 import { Strength } from "../../types/strength.types";
 import { Side } from "../../types/side.types";
-import Slider from "../Slider/Slider";
-import TimeVariants from "../TimeVariants/TimeVariants";
+import TimePicker from "../TimePicker/TimePicker";
+import ModePicker from "../ModePicker/ModePicker";
 import StrengthPicker from "../StrengthPicker/StrengthPicker";
 import SidePicker from "../SidePicker/SidePicker";
-import StartGame from "../StartGame/StartGame";
 import "./GameSettings.css";
+import { apiPostRequest } from "utils/apiClient.ts";
+import { useNavigate } from "react-router-dom";
 
 export default function GameSettings() {
   const [gameMode, setGameMode] = useState<GameMode>("ai");
@@ -16,48 +17,45 @@ export default function GameSettings() {
   const [limitedGameMinutes, setLimitedGameMinutes] = useState(15);
   const [strength, setStrength] = useState<Strength>(1);
   const [side, setSide] = useState<Side>("random");
+  const navigate = useNavigate();
 
   return (
     <div className="homeSection__gameSettings">
-      <div className="settings__modes">
-        <button
-          className={`settings__mode ${gameMode === "ai" ? "selected" : ""}`}
-          onClick={() => setGameMode("ai")}>
-          Play with AI
-        </button>
-        <button
-          className={`settings__mode ${gameMode === "friend" ? "selected" : ""}`}
-          onClick={() => setGameMode("friend")}>
-          Play with a friend
-        </button>
-      </div>
-      <div className="settings__time">
-        <h3 className="settings__time-title">Game time</h3>
-        <div className="time__buttons-limit">
-          <button
-            className={`time__button-limit ${gameTimeMode === "unlimited" ? "selected" : ""}`}
-            onClick={() => setGameTimeMode("unlimited")}>
-            Unlimited
-          </button>
-          <button
-            className={`time__button-limit ${gameTimeMode !== "unlimited" ? "selected" : ""}`}
-            onClick={() => setGameTimeMode("limited")}>
-            Limited
-          </button>
-        </div>
-        {gameTimeMode === "limited" && (
-          <div className="settings__limitSelect">
-            <Slider
-              limitedGameMinutes={limitedGameMinutes}
-              setLimitedGameMinutes={setLimitedGameMinutes}
-            />
-            <TimeVariants setLimitedGameMinutes={setLimitedGameMinutes} />
-          </div>
-        )}
-      </div>
+      <ModePicker gameMode={gameMode} setGameMode={setGameMode} />
+      <TimePicker
+        gameTimeMode={gameTimeMode}
+        setGameTimeMode={setGameTimeMode}
+        limitedGameMinutes={limitedGameMinutes}
+        setLimitedGameMinutes={setLimitedGameMinutes}
+      />
       {gameMode === "ai" && <StrengthPicker strength={strength} setStrength={setStrength} />}
       <SidePicker side={side} setSide={setSide} />
-      <StartGame />
+
+      <div className="settings__startGame">
+        <button
+          className="startGame"
+          data-testid="startGame-button"
+          onClick={async () => {
+            if (gameMode === "friend") return;
+
+            const res = await apiPostRequest(
+              "/api/challenge/ai",
+              new URLSearchParams({
+                level: String(strength),
+                color: side,
+                variant: "standard",
+                ...(gameTimeMode === "limited" && {
+                  "clock.limit": String(limitedGameMinutes * 60),
+                  "clock.increment": "1"
+                })
+              })
+            );
+
+            navigate(`/play/${res.data.id}`);
+          }}>
+          Start Game
+        </button>
+      </div>
     </div>
   );
 }

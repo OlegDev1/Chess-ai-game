@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <QueryClientProvider client={queryClient}>
         <Routes>
           <Route path="/" element={<HomeRoute />} />
-          <Route path="/play" element={<ChessRoute />} />
+          <Route path="/play/:gameId" element={<ChessRoute />} />
         </Routes>
 
         <ReactQueryDevtools initialIsOpen={false} />

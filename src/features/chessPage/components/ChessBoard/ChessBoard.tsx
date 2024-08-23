@@ -7,13 +7,16 @@ import { PromotionPieceOption, Piece, Square } from "react-chessboard/dist/chess
 import useStreamGame from "../../hooks/useStreamGame";
 import { MoveStyleType } from "../../types/MoveStyleType.types";
 
-export default function ChessBoard() {
+type ChessBoardProps = {
+  gameId: string;
+};
+
+export default function ChessBoard({ gameId }: ChessBoardProps) {
   const [chessBoardFEN, setChessBoardFEN] = useState<null | string>(null);
   const [possibleMoves, setPossibleMoves] = useState<object>({});
   const [isCheckStyle, setIsCheckStyle] = useState<object>({});
   const [lastMoveStyle, setLastMoveStyle] = useState<object>({});
   const lichessApi = "lip_1PxEoSykBCqOIAXnLVXc";
-  const gameId = "J1tPD7V8";
 
   useStreamGame({ gameId, setLastMoveStyle, setIsCheckStyle, setChessBoardFEN, lichessApi });
 
