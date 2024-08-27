@@ -9,6 +9,7 @@ type useStreamGameProps = {
   setLastMoveStyle: React.Dispatch<React.SetStateAction<object>>;
   setIsCheckStyle: React.Dispatch<React.SetStateAction<object>>;
   setChessBoardFEN: React.Dispatch<React.SetStateAction<null | string>>;
+  setMoves: React.Dispatch<React.SetStateAction<string>>;
 };
 type ResponseType = { state?: { moves: string }; moves: string };
 
@@ -17,7 +18,8 @@ export default function useStreamGame({
   gameId,
   setLastMoveStyle,
   setIsCheckStyle,
-  setChessBoardFEN
+  setChessBoardFEN,
+  setMoves
 }: useStreamGameProps) {
   const [focus, setFocus] = useState(0);
 
@@ -80,6 +82,8 @@ export default function useStreamGame({
         }
         //Highlights the last move
         setLastMoveStyle(style);
+        //Updates the move history
+        setMoves(moves);
       }
 
       //If the current side is in check
@@ -106,5 +110,5 @@ export default function useStreamGame({
     };
 
     stream.then(readStream(onMessage));
-  }, [focus, lichessApi, gameId, setLastMoveStyle, setIsCheckStyle, setChessBoardFEN]);
+  }, [focus, lichessApi, gameId, setLastMoveStyle, setIsCheckStyle, setChessBoardFEN, setMoves]);
 }

@@ -1,0 +1,24 @@
+.moves__list {
+  box-sizing: border-box;
+  background-color: #151c51;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  max-height: 800px;
+  width: 100%;
+  color: white;
+  font-weight: 300;
+  font-size: 0.8rem;
+  display: grid;
+  grid-auto-rows: 20px;
+  overflow-y: auto;
+}
+.moves__item {
+  display: grid;
+  grid-template-columns: 40px 100px 100px;
+}
+.move__item {
+  display: flex;
+}
+.move__item.win {
+  border: 2px solid var(--darkerYellow);
+}

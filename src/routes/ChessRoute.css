@@ -1,0 +1,35 @@
+.chessWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1200px 1fr;
+}
+.chessBoard-content {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: 800px 400px;
+  gap: 1rem;
+}
+.chess-moves {
+  background-color: red;
+}
+
+@media all and (max-width: 1250px) {
+  .chessWrapper {
+    grid-template-columns: 1fr 1100px 1fr;
+  }
+  .chessBoard-content {
+    grid-template-columns: 800px 300px;
+  }
+}
+@media all and (max-width: 1150px) {
+  .chessBoard-content {
+    grid-column: 1;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    grid-template-columns: 100%;
+    grid-template-rows: auto 250px;
+    overflow-x: hidden;
+  }
+  .chessWrapper {
+    grid-template-columns: 100%;
+  }
+}
