@@ -77,6 +77,7 @@ export default function ChessBoard({ gameId, setMoves }: ChessBoardProps) {
       };
     }
     setPossibleMoves(styles);
+    return true;
   }
   function handlePieceDragBegin(_piece: Piece, sourceSquare: Square) {
     if (!chessBoardFEN) return false;
@@ -85,7 +86,7 @@ export default function ChessBoard({ gameId, setMoves }: ChessBoardProps) {
     const moves = chess.moves({ square: sourceSquare, verbose: true });
     if (moves.length == 0) {
       setPossibleMoves({});
-      return;
+      return false;
     }
 
     const styles: MoveStyleType = { [sourceSquare]: { background: "rgba(255, 255, 0, 0.4)" } };
@@ -99,6 +100,7 @@ export default function ChessBoard({ gameId, setMoves }: ChessBoardProps) {
       };
     }
     setPossibleMoves(styles);
+    return true;
   }
   function handlePieceDrop(sourceSquare: Square, targetSquare: Square) {
     if (!chessBoardFEN) return false;
@@ -170,7 +172,6 @@ export default function ChessBoard({ gameId, setMoves }: ChessBoardProps) {
       setPossibleMoves({});
       setIsCheckStyle({});
       setMoves((moves) => (moves += ` ${promoteFromSquare + promoteToSquare + promotionPiece}`));
-
       return true;
     } catch (e) {
       return false;
