@@ -5,13 +5,17 @@ import { Chessboard } from "react-chessboard";
 import { PromotionPieceOption, Piece, Square } from "react-chessboard/dist/chessboard/types";
 import useStreamGame from "../../hooks/useStreamGame";
 import { MoveStyleType } from "../../types/MoveStyleType.types";
+import { TimeType } from "features/chessPage/types/TimeType.types";
+import { GameDataType } from "features/chessPage/types/GameDataType.types";
 
 type ChessBoardProps = {
   gameId: string;
   setMoves: React.Dispatch<React.SetStateAction<string>>;
+  setTime: React.Dispatch<React.SetStateAction<TimeType>>;
+  setGameData: React.Dispatch<React.SetStateAction<GameDataType>>;
 };
 
-export default function ChessBoard({ gameId, setMoves }: ChessBoardProps) {
+export default function ChessBoard({ gameId, setMoves, setTime, setGameData }: ChessBoardProps) {
   const [chessBoardFEN, setChessBoardFEN] = useState<null | string>(null);
   const [possibleMoves, setPossibleMoves] = useState<object>({});
   const [isCheckStyle, setIsCheckStyle] = useState<object>({});
@@ -24,7 +28,9 @@ export default function ChessBoard({ gameId, setMoves }: ChessBoardProps) {
     setLastMoveStyle,
     setIsCheckStyle,
     setChessBoardFEN,
-    setMoves
+    setMoves,
+    setTime,
+    setGameData
   });
 
   function handleSquareClick(square: Square) {
@@ -53,6 +59,10 @@ export default function ChessBoard({ gameId, setMoves }: ChessBoardProps) {
         setPossibleMoves({});
         setIsCheckStyle({});
         setMoves((moves) => (moves += ` ${fromSquare + square}`));
+        setGameData((data) => ({
+          ...data,
+          currentSide: data.currentSide == "white" ? "black" : "white"
+        }));
         return true;
       } catch (e) {
         return false;
@@ -124,6 +134,10 @@ export default function ChessBoard({ gameId, setMoves }: ChessBoardProps) {
       setPossibleMoves({});
       setIsCheckStyle({});
       setMoves((moves) => (moves += ` ${sourceSquare + targetSquare}`));
+      setGameData((data) => ({
+        ...data,
+        currentSide: data.currentSide == "white" ? "black" : "white"
+      }));
       return true;
     } catch (e) {
       return false;
@@ -172,6 +186,10 @@ export default function ChessBoard({ gameId, setMoves }: ChessBoardProps) {
       setPossibleMoves({});
       setIsCheckStyle({});
       setMoves((moves) => (moves += ` ${promoteFromSquare + promoteToSquare + promotionPiece}`));
+      setGameData((data) => ({
+        ...data,
+        currentSide: data.currentSide == "white" ? "black" : "white"
+      }));
       return true;
     } catch (e) {
       return false;
@@ -180,14 +198,16 @@ export default function ChessBoard({ gameId, setMoves }: ChessBoardProps) {
 
   if (!chessBoardFEN) return <></>;
   return (
-    <Chessboard
-      position={chessBoardFEN}
-      onSquareClick={handleSquareClick}
-      onPieceDragBegin={handlePieceDragBegin}
-      onPieceDrop={handlePieceDrop}
-      onPromotionCheck={handlePromotionCheck}
-      onPromotionPieceSelect={handlePromotionPieceSelect}
-      customSquareStyles={{ ...lastMoveStyle, ...isCheckStyle, ...possibleMoves }}
-    />
+    <div className="chessboard">
+      <Chessboard
+        position={chessBoardFEN}
+        onSquareClick={handleSquareClick}
+        onPieceDragBegin={handlePieceDragBegin}
+        onPieceDrop={handlePieceDrop}
+        onPromotionCheck={handlePromotionCheck}
+        onPromotionPieceSelect={handlePromotionPieceSelect}
+        customSquareStyles={{ ...lastMoveStyle, ...isCheckStyle, ...possibleMoves }}
+      />
+    </div>
   );
 }

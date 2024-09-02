@@ -1,0 +1,20 @@
+.chessboardTimer {
+  color: #e3b172;
+  display: grid;
+  grid-template-columns: 200px 200px;
+  gap: 0.2rem;
+  justify-content: space-between;
+}
+.timer__time,
+.timer__name {
+  background-color: #151c51;
+  border-radius: var(--defaultRadius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+}
+.timer__time.selected,
+.timer__name.selected {
+  background-color: #1b246e;
+}

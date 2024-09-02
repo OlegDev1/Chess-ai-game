@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { Chess } from "chess.js";
 import _ from "lodash";
 import { MoveStyleType } from "../types/MoveStyleType.types";
+import { TimeType } from "../types/TimeType.types";
+import { GameDataType } from "../types/GameDataType.types";
+import { StreamResponseType } from "../types/StreamResponseType.types";
 
 type useStreamGameProps = {
   lichessApi: string;
@@ -10,8 +13,9 @@ type useStreamGameProps = {
   setIsCheckStyle: React.Dispatch<React.SetStateAction<object>>;
   setChessBoardFEN: React.Dispatch<React.SetStateAction<null | string>>;
   setMoves: React.Dispatch<React.SetStateAction<string>>;
+  setTime: React.Dispatch<React.SetStateAction<TimeType>>;
+  setGameData: React.Dispatch<React.SetStateAction<GameDataType>>;
 };
-type ResponseType = { state?: { moves: string }; moves: string };
 
 export default function useStreamGame({
   lichessApi,
@@ -19,7 +23,9 @@ export default function useStreamGame({
   setLastMoveStyle,
   setIsCheckStyle,
   setChessBoardFEN,
-  setMoves
+  setMoves,
+  setTime,
+  setGameData
 }: useStreamGameProps) {
   const [focus, setFocus] = useState(0);
 
@@ -30,31 +36,32 @@ export default function useStreamGame({
 
   //Uses http streaming to get the data about the game from the api
   useEffect(() => {
-    const readStream = (processLine: (arg0: ResponseType) => void) => (response: Response) => {
-      const stream = response.body!.getReader();
-      const matcher = /\r?\n/;
-      const decoder = new TextDecoder();
-      let buf = "";
+    const readStream =
+      (processLine: (arg0: StreamResponseType) => void) => (response: Response) => {
+        const stream = response.body!.getReader();
+        const matcher = /\r?\n/;
+        const decoder = new TextDecoder();
+        let buf = "";
 
-      const loop: () => Promise<void> = () =>
-        stream.read().then(({ done, value }) => {
-          if (done) {
-            if (buf.length > 0) processLine(JSON.parse(buf));
-          } else {
-            const chunk = decoder.decode(value, {
-              stream: true
-            });
-            buf += chunk;
+        const loop: () => Promise<void> = () =>
+          stream.read().then(({ done, value }) => {
+            if (done) {
+              if (buf.length > 0) processLine(JSON.parse(buf));
+            } else {
+              const chunk = decoder.decode(value, {
+                stream: true
+              });
+              buf += chunk;
 
-            const parts = buf.split(matcher);
-            buf = parts.pop()!;
-            for (const i of parts.filter((p) => p)) processLine(JSON.parse(i));
-            return loop();
-          }
-        });
+              const parts = buf.split(matcher);
+              buf = parts.pop()!;
+              for (const i of parts.filter((p) => p)) processLine(JSON.parse(i));
+              return loop();
+            }
+          });
 
-      return loop();
-    };
+        return loop();
+      };
 
     const stream = fetch(`https://lichess.org/api/board/game/stream/${gameId}`, {
       headers: {
@@ -62,9 +69,21 @@ export default function useStreamGame({
       }
     });
 
-    const onMessage = (response: ResponseType) => {
+    const onMessage = (response: StreamResponseType) => {
       const chess = new Chess();
-      const moves = response.state ? response.state.moves : response.moves;
+      const moves = response.type == "gameFull" ? response.state.moves : response.moves;
+      const time = response.type == "gameFull" ? response.state : response;
+      const currentSide =
+        moves.split(" ").filter((e) => e !== "").length % 2 == 0 ? "white" : "black";
+
+      //If full response with game data
+      if (response.type == "gameFull") {
+        const aiSide = response.white.aiLevel !== undefined ? "white" : "black";
+        const aiStrength = response[aiSide].aiLevel!;
+        const playerSide = aiSide == "white" ? "black" : "white";
+
+        setGameData((data) => ({ ...data, playerSide: playerSide, aiStrength: aiStrength }));
+      }
 
       //If there are moves on the board
       if (moves) {
@@ -105,10 +124,32 @@ export default function useStreamGame({
         setIsCheckStyle({});
       }
 
+      //Updates the time left
+      if (time.wtime > 10_800_000) {
+        //unlimited time, because the maximum for limited is 10,800,000 milliseconds
+        setTime((timeObj) => ({ ...timeObj, white: "unlimited", black: "unlimited" }));
+      } else {
+        //limited time
+        setTime((timeObj) => ({ ...timeObj, white: time.wtime, black: time.btime }));
+      }
+
+      //Updates the current side
+      setGameData((data) => ({ ...data, currentSide: currentSide }));
+
       //Updates the chessboard
       setChessBoardFEN(chess.fen());
     };
 
     stream.then(readStream(onMessage));
-  }, [focus, lichessApi, gameId, setLastMoveStyle, setIsCheckStyle, setChessBoardFEN, setMoves]);
+  }, [
+    focus,
+    lichessApi,
+    gameId,
+    setLastMoveStyle,
+    setIsCheckStyle,
+    setChessBoardFEN,
+    setMoves,
+    setTime,
+    setGameData
+  ]);
 }

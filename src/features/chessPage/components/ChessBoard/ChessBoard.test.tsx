@@ -34,7 +34,9 @@ describe("onSquareClick event handler", () => {
       .mockImplementationOnce(() => [{}, jest.fn()]) // Mock isCheckStyle state
       .mockImplementationOnce(() => [{}, jest.fn()]); // Mock lastMoveStyle state
 
-    render(<ChessBoard gameId="" setMoves={jest.fn()} />);
+    render(
+      <ChessBoard setTime={jest.fn()} setGameData={jest.fn()} gameId="" setMoves={jest.fn()} />
+    );
     func = mockChessboard.mock.calls[0][0].onSquareClick;
   });
   afterEach(() => {
@@ -71,7 +73,9 @@ describe("onPieceDragBegin event handler", () => {
       .mockImplementationOnce(() => [{}, jest.fn()]) // Mock isCheckStyle state
       .mockImplementationOnce(() => [{}, jest.fn()]); // Mock lastMoveStyle state
 
-    render(<ChessBoard gameId="" setMoves={jest.fn()} />);
+    render(
+      <ChessBoard setTime={jest.fn()} setGameData={jest.fn()} gameId="" setMoves={jest.fn()} />
+    );
     func = mockChessboard.mock.calls[0][0].onPieceDragBegin;
   });
   afterEach(() => {
@@ -99,7 +103,9 @@ describe("onPieceDrop event handler", () => {
       .mockImplementationOnce(() => [{}, jest.fn()]) // Mock isCheckStyle state
       .mockImplementationOnce(() => [{}, jest.fn()]); // Mock lastMoveStyle state
 
-    render(<ChessBoard gameId="" setMoves={jest.fn()} />);
+    render(
+      <ChessBoard setTime={jest.fn()} setGameData={jest.fn()} gameId="" setMoves={jest.fn()} />
+    );
     func = mockChessboard.mock.calls[0][0].onPieceDrop;
   });
   afterEach(() => {
@@ -130,7 +136,9 @@ describe("onPromotionCheck event handler", () => {
       .mockImplementationOnce(() => [{}, jest.fn()]) // Mock isCheckStyle state
       .mockImplementationOnce(() => [{}, jest.fn()]); // Mock lastMoveStyle state
 
-    render(<ChessBoard gameId="" setMoves={jest.fn()} />);
+    render(
+      <ChessBoard setTime={jest.fn()} setGameData={jest.fn()} gameId="" setMoves={jest.fn()} />
+    );
     func = mockChessboard.mock.calls[0][0].onPromotionCheck;
   });
   afterEach(() => {
@@ -165,7 +173,9 @@ describe("onPromotionPieceSelect event handler", () => {
       .mockImplementationOnce(() => [{}, jest.fn()]) // Mock isCheckStyle state
       .mockImplementationOnce(() => [{}, jest.fn()]); // Mock lastMoveStyle state
 
-    render(<ChessBoard gameId="" setMoves={jest.fn()} />);
+    render(
+      <ChessBoard setTime={jest.fn()} setGameData={jest.fn()} gameId="" setMoves={jest.fn()} />
+    );
     func = mockChessboard.mock.calls[0][0].onPromotionPieceSelect;
   });
   afterEach(() => {
