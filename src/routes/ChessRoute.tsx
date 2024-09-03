@@ -29,6 +29,7 @@ export default function ChessRoute() {
         <Timer time={time} moves={moves} gameData={gameData} />
         <ChessBoard
           gameId={gameId}
+          gameData={gameData}
           setMoves={setMoves}
           setTime={setTime}
           setGameData={setGameData}

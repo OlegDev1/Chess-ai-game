@@ -35,7 +35,13 @@ describe("onSquareClick event handler", () => {
       .mockImplementationOnce(() => [{}, jest.fn()]); // Mock lastMoveStyle state
 
     render(
-      <ChessBoard setTime={jest.fn()} setGameData={jest.fn()} gameId="" setMoves={jest.fn()} />
+      <ChessBoard
+        gameId=""
+        gameData={{ playerSide: "white", currentSide: "white", aiStrength: 1 }}
+        setTime={jest.fn()}
+        setGameData={jest.fn()}
+        setMoves={jest.fn()}
+      />
     );
     func = mockChessboard.mock.calls[0][0].onSquareClick;
   });
@@ -74,7 +80,13 @@ describe("onPieceDragBegin event handler", () => {
       .mockImplementationOnce(() => [{}, jest.fn()]); // Mock lastMoveStyle state
 
     render(
-      <ChessBoard setTime={jest.fn()} setGameData={jest.fn()} gameId="" setMoves={jest.fn()} />
+      <ChessBoard
+        gameId=""
+        gameData={{ playerSide: "white", currentSide: "white", aiStrength: 1 }}
+        setTime={jest.fn()}
+        setGameData={jest.fn()}
+        setMoves={jest.fn()}
+      />
     );
     func = mockChessboard.mock.calls[0][0].onPieceDragBegin;
   });
@@ -104,7 +116,13 @@ describe("onPieceDrop event handler", () => {
       .mockImplementationOnce(() => [{}, jest.fn()]); // Mock lastMoveStyle state
 
     render(
-      <ChessBoard setTime={jest.fn()} setGameData={jest.fn()} gameId="" setMoves={jest.fn()} />
+      <ChessBoard
+        gameId=""
+        gameData={{ playerSide: "white", currentSide: "white", aiStrength: 1 }}
+        setTime={jest.fn()}
+        setGameData={jest.fn()}
+        setMoves={jest.fn()}
+      />
     );
     func = mockChessboard.mock.calls[0][0].onPieceDrop;
   });
@@ -137,7 +155,13 @@ describe("onPromotionCheck event handler", () => {
       .mockImplementationOnce(() => [{}, jest.fn()]); // Mock lastMoveStyle state
 
     render(
-      <ChessBoard setTime={jest.fn()} setGameData={jest.fn()} gameId="" setMoves={jest.fn()} />
+      <ChessBoard
+        gameId=""
+        gameData={{ playerSide: "white", currentSide: "white", aiStrength: 1 }}
+        setTime={jest.fn()}
+        setGameData={jest.fn()}
+        setMoves={jest.fn()}
+      />
     );
     func = mockChessboard.mock.calls[0][0].onPromotionCheck;
   });
@@ -174,7 +198,13 @@ describe("onPromotionPieceSelect event handler", () => {
       .mockImplementationOnce(() => [{}, jest.fn()]); // Mock lastMoveStyle state
 
     render(
-      <ChessBoard setTime={jest.fn()} setGameData={jest.fn()} gameId="" setMoves={jest.fn()} />
+      <ChessBoard
+        gameId=""
+        gameData={{ playerSide: "white", currentSide: "white", aiStrength: 1 }}
+        setTime={jest.fn()}
+        setGameData={jest.fn()}
+        setMoves={jest.fn()}
+      />
     );
     func = mockChessboard.mock.calls[0][0].onPromotionPieceSelect;
   });
@@ -198,5 +228,72 @@ describe("onPromotionPieceSelect event handler", () => {
     expect(func("wQ", "b7", undefined)).toBe(false);
     expect(func("wQ", undefined, "c8")).toBe(false);
     expect(func(undefined, "b7", "c8")).toBe(false);
+  });
+});
+
+describe("onSquareClick, onPieceDragBegin, onPieceDrop event handlers. When playerSide != currentSide", () => {
+  beforeEach(() => {
+    jest
+      .spyOn(React, "useState")
+      .mockImplementationOnce(() => [chessBoardFEN, jest.fn()]) // Mock chessBoardFEN state
+      .mockImplementationOnce(() => [{}, jest.fn()]) // Mock possibleMoves state
+      .mockImplementationOnce(() => [{}, jest.fn()]) // Mock isCheckStyle state
+      .mockImplementationOnce(() => [{}, jest.fn()]); // Mock lastMoveStyle state
+  });
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("onSquareClick, returns false when playerSide != currentSide", () => {
+    render(
+      <ChessBoard
+        gameId=""
+        gameData={{ playerSide: "white", currentSide: "black", aiStrength: 1 }}
+        setTime={jest.fn()}
+        setGameData={jest.fn()}
+        setMoves={jest.fn()}
+      />
+    );
+    const func: (sqaure: Square) => boolean = mockChessboard.mock.calls[0][0].onSquareClick;
+
+    /* there are no possible moves at a2 for the player,
+    because playerSide != currentSide */
+    expect(func("a2")).toBe(false);
+  });
+
+  it("onPieceDragBegin, returns false when playerSide != currentSide", () => {
+    render(
+      <ChessBoard
+        gameId=""
+        gameData={{ playerSide: "white", currentSide: "black", aiStrength: 1 }}
+        setTime={jest.fn()}
+        setGameData={jest.fn()}
+        setMoves={jest.fn()}
+      />
+    );
+    const func: (_piece: Piece, sourceSquare: Square) => boolean =
+      mockChessboard.mock.calls[0][0].onPieceDragBegin;
+
+    /* a2 does not have possible moves on starting position for the player,
+    because playerSide != currentSide */
+    expect(func("wP", "a2")).toBe(false);
+  });
+
+  it("onPieceDrop, returns false when playerSide != currentSide", () => {
+    render(
+      <ChessBoard
+        gameId=""
+        gameData={{ playerSide: "white", currentSide: "black", aiStrength: 1 }}
+        setTime={jest.fn()}
+        setGameData={jest.fn()}
+        setMoves={jest.fn()}
+      />
+    );
+    const func: (sourceSquare: Square, targetSquare: Square) => boolean =
+      mockChessboard.mock.calls[0][0].onPieceDrop;
+
+    /* move from a2 to a3 is not possible for the player,
+    because playerSide != currentSide */
+    expect(func("a2", "a3")).toBe(false);
   });
 });

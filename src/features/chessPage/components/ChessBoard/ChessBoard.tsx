@@ -10,12 +10,19 @@ import { GameDataType } from "features/chessPage/types/GameDataType.types";
 
 type ChessBoardProps = {
   gameId: string;
+  gameData: GameDataType;
   setMoves: React.Dispatch<React.SetStateAction<string>>;
   setTime: React.Dispatch<React.SetStateAction<TimeType>>;
   setGameData: React.Dispatch<React.SetStateAction<GameDataType>>;
 };
 
-export default function ChessBoard({ gameId, setMoves, setTime, setGameData }: ChessBoardProps) {
+export default function ChessBoard({
+  gameId,
+  gameData,
+  setMoves,
+  setTime,
+  setGameData
+}: ChessBoardProps) {
   const [chessBoardFEN, setChessBoardFEN] = useState<null | string>(null);
   const [possibleMoves, setPossibleMoves] = useState<object>({});
   const [isCheckStyle, setIsCheckStyle] = useState<object>({});
@@ -34,7 +41,7 @@ export default function ChessBoard({ gameId, setMoves, setTime, setGameData }: C
   });
 
   function handleSquareClick(square: Square) {
-    if (!chessBoardFEN) return false;
+    if (!chessBoardFEN || gameData.playerSide !== gameData.currentSide) return false;
 
     const chess = new Chess(chessBoardFEN);
 
@@ -90,7 +97,7 @@ export default function ChessBoard({ gameId, setMoves, setTime, setGameData }: C
     return true;
   }
   function handlePieceDragBegin(_piece: Piece, sourceSquare: Square) {
-    if (!chessBoardFEN) return false;
+    if (!chessBoardFEN || gameData.playerSide !== gameData.currentSide) return false;
 
     const chess = new Chess(chessBoardFEN);
     const moves = chess.moves({ square: sourceSquare, verbose: true });
@@ -113,7 +120,7 @@ export default function ChessBoard({ gameId, setMoves, setTime, setGameData }: C
     return true;
   }
   function handlePieceDrop(sourceSquare: Square, targetSquare: Square) {
-    if (!chessBoardFEN) return false;
+    if (!chessBoardFEN || gameData.playerSide !== gameData.currentSide) return false;
 
     const chess = new Chess(chessBoardFEN);
     try {
