@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import GameSettings from "./GameSettings";
 import userEvent from "@testing-library/user-event";
-import * as apiClient from "utils/apiClient.ts";
+import * as apiClient from "@utils/apiClient.ts";
 import * as router from "react-router";
 import { AxiosResponse } from "axios";
 

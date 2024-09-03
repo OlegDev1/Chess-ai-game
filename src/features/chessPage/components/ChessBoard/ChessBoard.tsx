@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Chess } from "chess.js";
-import { apiPostRequest } from "utils/apiClient";
+import { apiPostRequest } from "@utils/apiClient";
 import { Chessboard } from "react-chessboard";
 import { PromotionPieceOption, Piece, Square } from "react-chessboard/dist/chessboard/types";
 import useStreamGame from "../../hooks/useStreamGame";

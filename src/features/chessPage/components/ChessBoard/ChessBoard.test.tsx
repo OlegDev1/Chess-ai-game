@@ -7,7 +7,7 @@ import {
   Square,
   ChessboardProps
 } from "react-chessboard/dist/chessboard/types";
-import * as apiClient from "utils/apiClient.ts";
+import * as apiClient from "@utils/apiClient.ts";
 
 /* The FEN (Forsyth-Edwards Notation) string representing
 the starting position of the chessboard */

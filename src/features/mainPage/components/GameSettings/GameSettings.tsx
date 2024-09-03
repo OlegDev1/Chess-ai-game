@@ -8,7 +8,7 @@ import ModePicker from "../ModePicker/ModePicker";
 import StrengthPicker from "../StrengthPicker/StrengthPicker";
 import SidePicker from "../SidePicker/SidePicker";
 import "./GameSettings.css";
-import { apiPostRequest } from "utils/apiClient.ts";
+import { apiPostRequest } from "@utils/apiClient.ts";
 import { useNavigate } from "react-router-dom";
 
 export default function GameSettings() {
