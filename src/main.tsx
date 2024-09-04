@@ -4,8 +4,8 @@ import { HashRouter, Routes, Route } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "./index.css";
-import HomeRoute from "./routes/HomeRoute";
-import ChessRoute from "./routes/ChessRoute";
+import HomeRoute from "@routes/HomeRoute";
+import ChessRoute from "@routes/ChessRoute";
 
 const queryClient = new QueryClient();
 

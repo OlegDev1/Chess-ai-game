@@ -1,8 +1,8 @@
-import { TimeType } from "features/chessPage/types/TimeType.types";
+import { TimeType } from "../../types/TimeType.types";
 import formatTime from "../../utils/formatTime.ts";
-import { GameDataType } from "features/chessPage/types/GameDataType.types.ts";
+import { GameDataType } from "../../types/GameDataType.types.ts";
 import useTimer from "../../hooks/useTimer";
-import { InfinitySVG } from "../../../../components/SVG/infinityIcon";
+import { InfinitySVG } from "@components/SVG/infinityIcon";
 import "./Timer.css";
 
 type TimerProps = {
@@ -17,26 +17,26 @@ export default function Timer({ time, moves, gameData }: TimerProps) {
 
   return (
     <>
-      <div className="chessboardTimer timer__bottom">
+      <div className="chessboard-timer chessboard-timer--bottom">
         <div
-          className={`timer__name timer__name-white ${currentSide == "white" ? "selected" : ""}`}
+          className={`chessboard-timer__name chessboard-timer__name--white ${currentSide == "white" ? "selected" : ""}`}
           data-testid="timerName-white">
           {playerSide == "white" ? "YOU" : `AI BOT LEVEL ${aiStrength}`}
         </div>
         <div
-          className={`timer__time timer__time-white ${currentSide == "white" ? "selected" : ""}`}
+          className={`chessboard-timer__time chessboard-timer__time--white ${currentSide == "white" ? "selected" : ""}`}
           data-testid="timerTime-white">
           {whiteSideTimer == "unlimited" ? <InfinitySVG /> : formatTime(whiteSideTimer)}
         </div>
       </div>
-      <div className="chessboardTimer timer__top">
+      <div className="chessboard-timer chessboard-timer--top">
         <div
-          className={`timer__name timer__name-black ${currentSide == "black" ? "selected" : ""}`}
+          className={`chessboard-timer__name chessboard-timer__name--black ${currentSide == "black" ? "selected" : ""}`}
           data-testid="timerName-black">
           {playerSide == "black" ? "YOU" : `AI BOT LEVEL ${aiStrength}`}
         </div>
         <div
-          className={`timer__time timer__time-black ${currentSide == "black" ? "selected" : ""}`}
+          className={`chessboard-timer__time chessboard-timer__time--black ${currentSide == "black" ? "selected" : ""}`}
           data-testid="timerTime-black">
           {blackSideTimer == "unlimited" ? <InfinitySVG /> : formatTime(blackSideTimer)}
         </div>

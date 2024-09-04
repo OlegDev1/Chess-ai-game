@@ -8,7 +8,7 @@ type ModePickerProps = {
 
 export default function ModePicker({ gameMode, setGameMode }: ModePickerProps) {
   return (
-    <div className="settings__modes">
+    <div className="settings__modes" data-testid="modePicker">
       <button
         className={`settings__mode ${gameMode === "ai" ? "selected" : ""}`}
         onClick={() => setGameMode("ai")}>

@@ -5,11 +5,16 @@
   gap: 1rem;
   border-bottom: 2px solid var(--mainDark);
 }
-.strengthVariants {
+.settings__strength-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+}
+.settings__strength-variants {
   display: flex;
   gap: 2px;
 }
-.strengthVariants__variant {
+.settings__strength-variant {
   font-size: 14px;
   font-weight: 500;
   transition: all 0.1s;
@@ -20,16 +25,11 @@
   border: none;
   cursor: pointer;
 }
-.strengthVariants__variant.selected,
-.strengthVariants__variant.selected:hover {
+.settings__strength-variant.selected,
+.settings__strength-variant.selected:hover {
   background-color: #ffffff;
 }
-.strengthVariants__variant:hover {
+.settings__strength-variant:hover {
   transition: all 0.1s;
   background-color: #ffffffcc;
-}
-.settings__strength-title {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 500;
 }

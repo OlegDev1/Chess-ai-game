@@ -10,7 +10,7 @@ import SidePicker from "../SidePicker/SidePicker";
 import "./GameSettings.css";
 import { apiPostRequest } from "@utils/apiClient.ts";
 import { useNavigate } from "react-router-dom";
-import { CreateGameResponse } from "@features/mainPage/types/createGameResponse.types";
+import { CreateGameResponse } from "../../types/createGameResponse.types";
 import { AxiosResponse } from "axios";
 
 export default function GameSettings() {
@@ -21,8 +21,26 @@ export default function GameSettings() {
   const [side, setSide] = useState<Side>("random");
   const navigate = useNavigate();
 
+  async function handleStartGame() {
+    if (gameMode === "friend") return;
+
+    const res: AxiosResponse<CreateGameResponse> = await apiPostRequest(
+      "/api/challenge/ai",
+      new URLSearchParams({
+        level: String(strength),
+        color: side,
+        variant: "standard",
+        ...(gameTimeMode === "limited" && {
+          "clock.limit": String(limitedGameMinutes * 60),
+          "clock.increment": "1"
+        })
+      })
+    );
+    navigate(`/play/${res.data.id}`);
+  }
+
   return (
-    <div className="homeSection__gameSettings">
+    <div className="home-section__settings">
       <ModePicker gameMode={gameMode} setGameMode={setGameMode} />
       <TimePicker
         gameTimeMode={gameTimeMode}
@@ -33,27 +51,11 @@ export default function GameSettings() {
       {gameMode === "ai" && <StrengthPicker strength={strength} setStrength={setStrength} />}
       <SidePicker side={side} setSide={setSide} />
 
-      <div className="settings__startGame">
+      <div className="settings__start-game">
         <button
-          className="startGame"
+          className="settings__start-game-button"
           data-testid="startGame-button"
-          onClick={async () => {
-            if (gameMode === "friend") return;
-
-            const res: AxiosResponse<CreateGameResponse> = await apiPostRequest(
-              "/api/challenge/ai",
-              new URLSearchParams({
-                level: String(strength),
-                color: side,
-                variant: "standard",
-                ...(gameTimeMode === "limited" && {
-                  "clock.limit": String(limitedGameMinutes * 60),
-                  "clock.increment": "1"
-                })
-              })
-            );
-            navigate(`/play/${res.data.id}`);
-          }}>
+          onClick={handleStartGame}>
           Start Game
         </button>
       </div>

@@ -12,10 +12,10 @@ export default function StrengthPicker({ strength, setStrength }: StrengthPicker
   return (
     <div className="settings__strength">
       <h3 className="settings__strength-title">Strength</h3>
-      <div className="strengthVariants" data-testid="strengthPicker">
+      <div className="settings__strength-variants" data-testid="strengthPicker">
         {strengthVariants.map((e) => (
           <button
-            className={`strengthVariants__variant ${e == strength ? "selected" : ""}`}
+            className={`settings__strength-variant ${e == strength ? "selected" : ""}`}
             onClick={() => setStrength(e)}
             key={e}>
             {e}

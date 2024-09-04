@@ -1,9 +1,9 @@
-.timeVariants {
+.settings__time-variants {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
 }
-.timeVariants__variant {
+.settings__time-variant {
   background-color: var(--yellowButtonBackground);
   border: none;
   padding: 0.45rem;

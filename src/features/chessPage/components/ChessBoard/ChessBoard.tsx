@@ -5,8 +5,8 @@ import { Chessboard } from "react-chessboard";
 import { PromotionPieceOption, Piece, Square } from "react-chessboard/dist/chessboard/types";
 import useStreamGame from "../../hooks/useStreamGame";
 import { MoveStyleType } from "../../types/MoveStyleType.types";
-import { TimeType } from "features/chessPage/types/TimeType.types";
-import { GameDataType } from "features/chessPage/types/GameDataType.types";
+import { TimeType } from "../../types/TimeType.types";
+import { GameDataType } from "../../types/GameDataType.types";
 
 type ChessBoardProps = {
   gameId: string;

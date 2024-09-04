@@ -1,8 +1,8 @@
-.chessWrapper {
+.chessboard-wrapper {
   display: grid;
   grid-template-columns: 1fr 1200px 1fr;
 }
-.chessBoard-content {
+.chessboard-content {
   grid-column: 2;
   display: grid;
   grid-template-columns: 800px 400px;
@@ -13,33 +13,33 @@
     "timer__bottom .";
   gap: 0.8rem;
 }
-.chessboardTimer.timer__top {
+.chessboard-timer.chessboard-timer--top {
   grid-area: timer__top;
 }
 .chessboard {
   grid-area: chessboard;
 }
-.moves__list {
+.chessboard-moves-list {
   grid-area: moves;
 }
-.chessboardTimer.timer__bottom {
+.chessboard-timer.chessboard-timer--bottom {
   grid-area: timer__bottom;
 }
 
 @media all and (max-width: 1250px) {
-  .chessWrapper {
+  .chessboard-wrapper {
     grid-template-columns: 1fr 1100px 1fr;
   }
-  .chessBoard-content {
+  .chessboard-content {
     grid-template-columns: 800px 300px;
   }
 }
 
 @media all and (max-width: 1150px) {
-  .chessWrapper {
+  .chessboard-wrapper {
     grid-template-columns: 1fr 800px 1fr;
   }
-  .chessBoard-content {
+  .chessboard-content {
     grid-template-columns: 100%;
     grid-template-rows: 40px 800px 40px 250px;
     grid-template-areas:
@@ -52,19 +52,19 @@
 }
 
 @media all and (max-width: 900px) {
-  .chessWrapper {
+  .chessboard-wrapper {
     grid-template-columns: 1fr 750px 1fr;
   }
-  .chessBoard-content {
+  .chessboard-content {
     grid-template-rows: 40px auto 40px 250px;
   }
 }
 
 @media all and (max-width: 750px) {
-  .chessWrapper {
+  .chessboard-wrapper {
     grid-template-columns: 100%;
   }
-  .chessBoard-content {
+  .chessboard-content {
     padding: 0.5rem;
     grid-column: 1;
     grid-template-columns: 100%;
@@ -73,13 +73,13 @@
 }
 
 @media all and (max-height: 750px) {
-  .chessBoard-content {
+  .chessboard-content {
     grid-template-rows: 40px auto 40px 150px;
   }
 }
 
 @media all and (max-width: 450px) {
-  .chessboardTimer {
+  .chessboard-timer {
     grid-template-columns: 1fr 1fr;
   }
 }

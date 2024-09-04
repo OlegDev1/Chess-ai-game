@@ -1,11 +1,11 @@
-.settings__side {
+.settings__sides {
   padding: 1.5rem 1rem;
   grid-row: 4 / 5;
   display: flex;
   gap: 4px;
   height: 48px;
 }
-.side {
+.settings__side {
   transition: all 0.3s;
   border: none;
   background-color: var(--yellowButtonBackground);
@@ -13,7 +13,7 @@
   cursor: pointer;
   flex: 1;
 }
-.side.selected {
+.settings__side.selected {
   transition: all 0.3s;
   background-color: #ffffff;
 }

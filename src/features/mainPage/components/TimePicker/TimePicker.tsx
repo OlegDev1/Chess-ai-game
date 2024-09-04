@@ -19,22 +19,22 @@ export default function TimePicker({
   return (
     <div className="settings__time">
       <h3 className="settings__time-title">Game time</h3>
-      <div className="time__buttons-limit">
+      <div className="settings__time-buttons">
         <button
-          className={`time__button-limit ${gameTimeMode === "unlimited" ? "selected" : ""}`}
+          className={`settings__time-button ${gameTimeMode === "unlimited" ? "selected" : ""}`}
           data-testid="unlimitedTime-button"
           onClick={() => setGameTimeMode("unlimited")}>
           Unlimited
         </button>
         <button
-          className={`time__button-limit ${gameTimeMode !== "unlimited" ? "selected" : ""}`}
+          className={`settings__time-button ${gameTimeMode !== "unlimited" ? "selected" : ""}`}
           data-testid="limitedTime-button"
           onClick={() => setGameTimeMode("limited")}>
           Limited
         </button>
       </div>
       {gameTimeMode === "limited" && (
-        <div className="settings__limitSelect">
+        <div className="settings__time-limit-select">
           <Slider
             limitedGameMinutes={limitedGameMinutes}
             setLimitedGameMinutes={setLimitedGameMinutes}

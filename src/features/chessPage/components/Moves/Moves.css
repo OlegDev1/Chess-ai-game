@@ -1,4 +1,4 @@
-.moves__list {
+.chessboard-moves-list {
   box-sizing: border-box;
   background-color: #151c51;
   margin: 0;
@@ -12,13 +12,13 @@
   grid-auto-rows: 20px;
   overflow-y: auto;
 }
-.moves__item {
+.chessboard-moves-list__move-pair {
   display: grid;
   grid-template-columns: 40px 100px 100px;
 }
-.move__item {
+.chessboard-moves-list__move {
   display: flex;
 }
-.move__item.win {
+.chessboard-moves-list__move.win {
   border: 2px solid var(--darkerYellow);
 }
