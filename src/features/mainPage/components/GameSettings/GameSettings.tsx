@@ -10,6 +10,8 @@ import SidePicker from "../SidePicker/SidePicker";
 import "./GameSettings.css";
 import { apiPostRequest } from "@utils/apiClient.ts";
 import { useNavigate } from "react-router-dom";
+import { CreateGameResponse } from "@features/mainPage/types/createGameResponse.types";
+import { AxiosResponse } from "axios";
 
 export default function GameSettings() {
   const [gameMode, setGameMode] = useState<GameMode>("ai");
@@ -38,7 +40,7 @@ export default function GameSettings() {
           onClick={async () => {
             if (gameMode === "friend") return;
 
-            const res = await apiPostRequest(
+            const res: AxiosResponse<CreateGameResponse> = await apiPostRequest(
               "/api/challenge/ai",
               new URLSearchParams({
                 level: String(strength),
@@ -50,7 +52,6 @@ export default function GameSettings() {
                 })
               })
             );
-
             navigate(`/play/${res.data.id}`);
           }}>
           Start Game
