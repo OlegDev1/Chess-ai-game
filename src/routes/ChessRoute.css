@@ -19,7 +19,7 @@
 .chessboard {
   grid-area: chessboard;
 }
-.chessboard-moves-list {
+.chessboard-moves {
   grid-area: moves;
 }
 .chessboard-timer.chessboard-timer--bottom {

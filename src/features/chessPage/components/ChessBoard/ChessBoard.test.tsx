@@ -37,7 +37,12 @@ describe("onSquareClick event handler", () => {
     render(
       <ChessBoard
         gameId=""
-        gameData={{ playerSide: "white", currentSide: "white", aiStrength: 1 }}
+        gameData={{
+          playerSide: "white",
+          currentSide: "white",
+          aiStrength: 1,
+          boardOrientation: "white"
+        }}
         setTime={jest.fn()}
         setGameData={jest.fn()}
         setMoves={jest.fn()}
@@ -82,7 +87,12 @@ describe("onPieceDragBegin event handler", () => {
     render(
       <ChessBoard
         gameId=""
-        gameData={{ playerSide: "white", currentSide: "white", aiStrength: 1 }}
+        gameData={{
+          playerSide: "white",
+          currentSide: "white",
+          aiStrength: 1,
+          boardOrientation: "white"
+        }}
         setTime={jest.fn()}
         setGameData={jest.fn()}
         setMoves={jest.fn()}
@@ -118,7 +128,12 @@ describe("onPieceDrop event handler", () => {
     render(
       <ChessBoard
         gameId=""
-        gameData={{ playerSide: "white", currentSide: "white", aiStrength: 1 }}
+        gameData={{
+          playerSide: "white",
+          currentSide: "white",
+          aiStrength: 1,
+          boardOrientation: "white"
+        }}
         setTime={jest.fn()}
         setGameData={jest.fn()}
         setMoves={jest.fn()}
@@ -157,7 +172,12 @@ describe("onPromotionCheck event handler", () => {
     render(
       <ChessBoard
         gameId=""
-        gameData={{ playerSide: "white", currentSide: "white", aiStrength: 1 }}
+        gameData={{
+          playerSide: "white",
+          currentSide: "white",
+          aiStrength: 1,
+          boardOrientation: "white"
+        }}
         setTime={jest.fn()}
         setGameData={jest.fn()}
         setMoves={jest.fn()}
@@ -200,7 +220,12 @@ describe("onPromotionPieceSelect event handler", () => {
     render(
       <ChessBoard
         gameId=""
-        gameData={{ playerSide: "white", currentSide: "white", aiStrength: 1 }}
+        gameData={{
+          playerSide: "white",
+          currentSide: "white",
+          aiStrength: 1,
+          boardOrientation: "white"
+        }}
         setTime={jest.fn()}
         setGameData={jest.fn()}
         setMoves={jest.fn()}
@@ -248,7 +273,12 @@ describe("onSquareClick, onPieceDragBegin, onPieceDrop event handlers. When play
     render(
       <ChessBoard
         gameId=""
-        gameData={{ playerSide: "white", currentSide: "black", aiStrength: 1 }}
+        gameData={{
+          playerSide: "white",
+          currentSide: "black",
+          aiStrength: 1,
+          boardOrientation: "white"
+        }}
         setTime={jest.fn()}
         setGameData={jest.fn()}
         setMoves={jest.fn()}
@@ -265,7 +295,12 @@ describe("onSquareClick, onPieceDragBegin, onPieceDrop event handlers. When play
     render(
       <ChessBoard
         gameId=""
-        gameData={{ playerSide: "white", currentSide: "black", aiStrength: 1 }}
+        gameData={{
+          playerSide: "white",
+          currentSide: "black",
+          aiStrength: 1,
+          boardOrientation: "white"
+        }}
         setTime={jest.fn()}
         setGameData={jest.fn()}
         setMoves={jest.fn()}
@@ -283,7 +318,12 @@ describe("onSquareClick, onPieceDragBegin, onPieceDrop event handlers. When play
     render(
       <ChessBoard
         gameId=""
-        gameData={{ playerSide: "white", currentSide: "black", aiStrength: 1 }}
+        gameData={{
+          playerSide: "white",
+          currentSide: "black",
+          aiStrength: 1,
+          boardOrientation: "white"
+        }}
         setTime={jest.fn()}
         setGameData={jest.fn()}
         setMoves={jest.fn()}

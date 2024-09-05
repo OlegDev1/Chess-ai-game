@@ -13,11 +13,13 @@ type TimerProps = {
 
 export default function Timer({ time, moves, gameData }: TimerProps) {
   const { whiteSideTimer, blackSideTimer } = useTimer({ time, moves, gameData });
-  const { currentSide, playerSide, aiStrength } = gameData;
+  const { currentSide, playerSide, aiStrength, boardOrientation } = gameData;
 
   return (
     <>
-      <div className="chessboard-timer chessboard-timer--bottom">
+      <div
+        className={`chessboard-timer chessboard-timer--${boardOrientation == "white" ? "bottom" : "top"}`}
+        data-testid="timer-white">
         <div
           className={`chessboard-timer__name chessboard-timer__name--white ${currentSide == "white" ? "selected" : ""}`}
           data-testid="timerName-white">
@@ -29,7 +31,9 @@ export default function Timer({ time, moves, gameData }: TimerProps) {
           {whiteSideTimer == "unlimited" ? <InfinitySVG /> : formatTime(whiteSideTimer)}
         </div>
       </div>
-      <div className="chessboard-timer chessboard-timer--top">
+      <div
+        className={`chessboard-timer chessboard-timer--${boardOrientation == "white" ? "top" : "bottom"}`}
+        data-testid="timer-black">
         <div
           className={`chessboard-timer__name chessboard-timer__name--black ${currentSide == "black" ? "selected" : ""}`}
           data-testid="timerName-black">

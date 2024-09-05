@@ -214,6 +214,7 @@ export default function ChessBoard({
         onPromotionCheck={handlePromotionCheck}
         onPromotionPieceSelect={handlePromotionPieceSelect}
         customSquareStyles={{ ...lastMoveStyle, ...isCheckStyle, ...possibleMoves }}
+        boardOrientation={gameData.boardOrientation}
       />
     </div>
   );

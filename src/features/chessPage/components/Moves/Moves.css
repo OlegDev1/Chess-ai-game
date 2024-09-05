@@ -1,9 +1,13 @@
+.chessboard-moves {
+  display: grid;
+  grid-template-rows: 25px 1fr;
+  background-color: #151c51;
+}
+
 .chessboard-moves-list {
   box-sizing: border-box;
-  background-color: #151c51;
   margin: 0;
   padding: 0.5rem 1rem;
-  max-height: 800px;
   width: 100%;
   color: white;
   font-weight: 300;
@@ -12,13 +16,21 @@
   grid-auto-rows: 20px;
   overflow-y: auto;
 }
-.chessboard-moves-list__move-pair {
+.chessboard-moves__move-pair {
   display: grid;
   grid-template-columns: 40px 100px 100px;
 }
-.chessboard-moves-list__move {
+.chessboard-moves__move {
   display: flex;
 }
-.chessboard-moves-list__move.win {
+.chessboard-moves__move.win {
   border: 2px solid var(--darkerYellow);
+}
+.chessboard-moves__change-side-button {
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  justify-self: start;
+  margin-left: 10px;
+  margin-top: 5px;
 }

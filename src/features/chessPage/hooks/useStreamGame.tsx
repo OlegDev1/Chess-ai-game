@@ -82,7 +82,12 @@ export default function useStreamGame({
         const aiStrength = response[aiSide].aiLevel!;
         const playerSide = aiSide == "white" ? "black" : "white";
 
-        setGameData((data) => ({ ...data, playerSide: playerSide, aiStrength: aiStrength }));
+        setGameData((data) => ({
+          ...data,
+          playerSide: playerSide,
+          aiStrength: aiStrength,
+          boardOrientation: playerSide
+        }));
       }
 
       //If there are moves on the board

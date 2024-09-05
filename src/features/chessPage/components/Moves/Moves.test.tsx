@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import Moves from "./Moves";
 
 it("First move with a pawn", () => {
-  render(<Moves moves="e2e3" />);
+  render(<Moves setGameData={jest.fn()} moves="e2e3" />);
   const listElement = screen.getByTestId("movesList").children[0];
   const index = listElement.children[0];
   const move = listElement.children[1];
@@ -11,7 +11,7 @@ it("First move with a pawn", () => {
 });
 
 it("Second move with a pawn", () => {
-  render(<Moves moves="e2e3 e7e6" />);
+  render(<Moves setGameData={jest.fn()} moves="e2e3 e7e6" />);
   const listElement = screen.getByTestId("movesList").children[0];
   const index = listElement.children[0];
   const move = listElement.children[2];
@@ -20,7 +20,7 @@ it("Second move with a pawn", () => {
 });
 
 it("A move with a knight", () => {
-  render(<Moves moves="e2e3 e7e6 b1a3" />);
+  render(<Moves setGameData={jest.fn()} moves="e2e3 e7e6 b1a3" />);
   const listElement = screen.getByTestId("movesList").children[1];
   const knightSVG = screen.getByTestId("knightSVG");
   const index = listElement.children[0];
@@ -31,7 +31,7 @@ it("A move with a knight", () => {
 });
 
 it("A move with a queen", () => {
-  render(<Moves moves="e2e3 e7e6 d1e2" />);
+  render(<Moves setGameData={jest.fn()} moves="e2e3 e7e6 d1e2" />);
   const listElement = screen.getByTestId("movesList").children[1];
   const queenSVG = screen.getByTestId("queenSVG");
   const index = listElement.children[0];
@@ -42,7 +42,7 @@ it("A move with a queen", () => {
 });
 
 it("A move with a king", () => {
-  render(<Moves moves="e2e3 e7e6 e1e2" />);
+  render(<Moves setGameData={jest.fn()} moves="e2e3 e7e6 e1e2" />);
   const listElement = screen.getByTestId("movesList").children[1];
   const kingSVG = screen.getByTestId("kingSVG");
   const index = listElement.children[0];
@@ -53,7 +53,7 @@ it("A move with a king", () => {
 });
 
 it("A move with a rook", () => {
-  render(<Moves moves="e2e3 e7e6 a2a3 e6e5 a1a2" />);
+  render(<Moves setGameData={jest.fn()} moves="e2e3 e7e6 a2a3 e6e5 a1a2" />);
   const listElement = screen.getByTestId("movesList").children[2];
   const rookSVG = screen.getByTestId("rookSVG");
   const index = listElement.children[0];
@@ -64,7 +64,7 @@ it("A move with a rook", () => {
 });
 
 it("A move with a bishop", () => {
-  render(<Moves moves="b2b3 e7e6 c1b2" />);
+  render(<Moves setGameData={jest.fn()} moves="b2b3 e7e6 c1b2" />);
   const listElement = screen.getByTestId("movesList").children[1];
   const bishopSVG = screen.getByTestId("bishopSVG");
   const index = listElement.children[0];

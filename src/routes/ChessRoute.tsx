@@ -13,6 +13,7 @@ export default function ChessRoute() {
   const [gameData, setGameData] = useState<GameDataType>({
     currentSide: "white",
     playerSide: "white",
+    boardOrientation: "white",
     aiStrength: 1
   });
   const { gameId } = useParams();
@@ -34,7 +35,7 @@ export default function ChessRoute() {
           setTime={setTime}
           setGameData={setGameData}
         />
-        <Moves moves={moves} />
+        <Moves moves={moves} setGameData={setGameData} />
       </section>
     </div>
   );
