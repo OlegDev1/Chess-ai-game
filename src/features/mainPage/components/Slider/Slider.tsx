@@ -23,7 +23,7 @@ export default function Slider({ limitedGameMinutes, setLimitedGameMinutes }: Sl
   });
 
   return (
-    <div className="slider" ref={sliderElement}>
+    <div className="slider" ref={sliderElement} data-testid="slider">
       <span
         className="slider__pointer"
         onPointerDown={(e) => {

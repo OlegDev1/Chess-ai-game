@@ -27,7 +27,7 @@ export default function TimePicker({
           Unlimited
         </button>
         <button
-          className={`settings__time-button ${gameTimeMode !== "unlimited" ? "selected" : ""}`}
+          className={`settings__time-button ${gameTimeMode === "limited" ? "selected" : ""}`}
           data-testid="limitedTime-button"
           onClick={() => setGameTimeMode("limited")}>
           Limited
