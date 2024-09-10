@@ -7,6 +7,8 @@ import useStreamGame from "../../hooks/useStreamGame";
 import { MoveStyleType } from "../../types/MoveStyleType.types";
 import { TimeType } from "../../types/TimeType.types";
 import { GameDataType } from "../../types/GameDataType.types";
+import playErrorSound from "@features/chessPage/utils/playErrorSound";
+import playMoveOrCaptureSound from "@features/chessPage/utils/playMoveOrCaptureSound";
 
 type ChessBoardProps = {
   gameId: string;
@@ -32,6 +34,7 @@ export default function ChessBoard({
   useStreamGame({
     lichessApi,
     gameId,
+    playerSide: gameData.playerSide,
     setLastMoveStyle,
     setIsCheckStyle,
     setChessBoardFEN,
@@ -70,6 +73,7 @@ export default function ChessBoard({
           ...data,
           currentSide: data.currentSide == "white" ? "black" : "white"
         }));
+        playMoveOrCaptureSound(chess);
         return true;
       } catch (e) {
         return false;
@@ -120,7 +124,10 @@ export default function ChessBoard({
     return true;
   }
   function handlePieceDrop(sourceSquare: Square, targetSquare: Square) {
-    if (!chessBoardFEN || gameData.playerSide !== gameData.currentSide) return false;
+    if (!chessBoardFEN || gameData.playerSide !== gameData.currentSide) {
+      playErrorSound();
+      return false;
+    }
 
     const chess = new Chess(chessBoardFEN);
     try {
@@ -145,8 +152,10 @@ export default function ChessBoard({
         ...data,
         currentSide: data.currentSide == "white" ? "black" : "white"
       }));
+      playMoveOrCaptureSound(chess);
       return true;
     } catch (e) {
+      playErrorSound();
       return false;
     }
   }

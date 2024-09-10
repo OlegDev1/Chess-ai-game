@@ -15,6 +15,8 @@ const chessBoardFEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 const mockChessboard = jest.fn();
 
 jest.mock("../../hooks/useStreamGame");
+jest.mock("@features/chessPage/utils/playMoveOrCaptureSound", () => jest.fn());
+jest.mock("@features/chessPage/utils/playErrorSound", () => jest.fn());
 jest.mock("react-chessboard", () => ({
   Chessboard: (props: ChessboardProps) => {
     mockChessboard(props);

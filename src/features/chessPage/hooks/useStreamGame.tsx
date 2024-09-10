@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Chess } from "chess.js";
 import _ from "lodash";
+import playMoveOrCaptureSound from "../utils/playMoveOrCaptureSound";
 import { MoveStyleType } from "../types/MoveStyleType.types";
 import { TimeType } from "../types/TimeType.types";
 import { GameDataType } from "../types/GameDataType.types";
@@ -9,6 +10,7 @@ import { StreamResponseType } from "../types/StreamResponseType.types";
 type useStreamGameProps = {
   lichessApi: string;
   gameId: string;
+  playerSide: "white" | "black";
   setLastMoveStyle: React.Dispatch<React.SetStateAction<object>>;
   setIsCheckStyle: React.Dispatch<React.SetStateAction<object>>;
   setChessBoardFEN: React.Dispatch<React.SetStateAction<null | string>>;
@@ -16,10 +18,10 @@ type useStreamGameProps = {
   setTime: React.Dispatch<React.SetStateAction<TimeType>>;
   setGameData: React.Dispatch<React.SetStateAction<GameDataType>>;
 };
-
 export default function useStreamGame({
   lichessApi,
   gameId,
+  playerSide,
   setLastMoveStyle,
   setIsCheckStyle,
   setChessBoardFEN,
@@ -96,6 +98,10 @@ export default function useStreamGame({
           chess.move(e);
         });
 
+        //Play the sound of opponent's move or capture
+        if (currentSide === playerSide && response.type == "gameState")
+          playMoveOrCaptureSound(chess);
+
         const lastTwoMoves: string | undefined = _.last(moves.split(" "));
         if (!lastTwoMoves) return;
         const lastMoves = [lastTwoMoves.slice(0, 2), lastTwoMoves.slice(2, 4)];
@@ -150,6 +156,7 @@ export default function useStreamGame({
     focus,
     lichessApi,
     gameId,
+    playerSide,
     setLastMoveStyle,
     setIsCheckStyle,
     setChessBoardFEN,
