@@ -2,6 +2,7 @@
   display: grid;
   grid-template-rows: 25px 1fr;
   background-color: #151c51;
+  border-radius: 2px;
 }
 
 .chessboard-moves-list {

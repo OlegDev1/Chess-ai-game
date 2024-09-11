@@ -3,6 +3,7 @@
   grid-template-columns: 1fr 1200px 1fr;
 }
 .chessboard-content {
+  margin-top: 0.5rem;
   grid-column: 2;
   display: grid;
   grid-template-columns: 800px 400px;
@@ -49,6 +50,9 @@
       "moves";
     overflow-x: hidden;
   }
+  .chessboard-moves {
+    grid-template-rows: 30px 1fr;
+  }
 }
 
 @media all and (max-width: 900px) {
@@ -65,6 +69,8 @@
     grid-template-columns: 100%;
   }
   .chessboard-content {
+    gap: 0.5rem;
+    margin-top: 0;
     padding: 0.5rem;
     grid-column: 1;
     grid-template-columns: 100%;
