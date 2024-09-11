@@ -45,6 +45,7 @@ it("Default values", () => {
       time={{ white: 0, black: 0 }}
       moves=""
       gameData={{
+        gameStatus: "started",
         currentSide: "white",
         playerSide: "white",
         aiStrength: 1,
@@ -70,6 +71,7 @@ it("Player (white) has 32 seconds. Bot level 5 (black, current) has 11 minutes a
       time={{ white: 32 * 1000, black: (60 * 11 + 12) * 1000 }}
       moves=""
       gameData={{
+        gameStatus: "started",
         currentSide: "black",
         playerSide: "white",
         aiStrength: 5,
@@ -95,6 +97,7 @@ it("Player (white, current) has 40 seconds. Bot level 1 (black) has 2 minutes", 
       time={{ white: 40 * 1000, black: 60 * 2 * 1000 }}
       moves=""
       gameData={{
+        gameStatus: "started",
         currentSide: "white",
         playerSide: "white",
         aiStrength: 1,
@@ -120,6 +123,7 @@ it("Player (black) has 0 seconds. Bot level 2 (white, current) has 0 seconds", (
       time={{ white: 0, black: 0 }}
       moves=""
       gameData={{
+        gameStatus: "started",
         currentSide: "white",
         playerSide: "black",
         aiStrength: 2,
@@ -145,6 +149,7 @@ it("Player (black, current) has 2 minutes and 28 seconds. Bot level 8 (white) ha
       time={{ white: (60 * 10 + 9) * 1000, black: (60 * 2 + 28) * 1000 }}
       moves="d2d3"
       gameData={{
+        gameStatus: "started",
         currentSide: "black",
         playerSide: "black",
         aiStrength: 8,
@@ -170,6 +175,7 @@ it("Player (white, current) has unlimited time. Bot level 1 (black) has unlimite
       time={{ white: "unlimited", black: "unlimited" }}
       moves=""
       gameData={{
+        gameStatus: "started",
         currentSide: "white",
         playerSide: "white",
         aiStrength: 1,
@@ -189,6 +195,7 @@ it("Player (black) has unlimited time. Bot level 1 (white, current) has unlimite
       time={{ white: "unlimited", black: "unlimited" }}
       moves=""
       gameData={{
+        gameStatus: "started",
         currentSide: "white",
         playerSide: "black",
         aiStrength: 1,
@@ -208,6 +215,7 @@ it("White timer at the bottom and black at the top, when the board orientation i
       time={{ white: 0, black: 0 }}
       moves=""
       gameData={{
+        gameStatus: "started",
         currentSide: "white",
         playerSide: "white",
         aiStrength: 1,
@@ -229,6 +237,7 @@ it("White timer at the top and black at the bottom, when the board orientation i
       time={{ white: 0, black: 0 }}
       moves=""
       gameData={{
+        gameStatus: "started",
         currentSide: "white",
         playerSide: "white",
         aiStrength: 1,

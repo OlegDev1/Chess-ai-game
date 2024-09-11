@@ -40,6 +40,7 @@ describe("onSquareClick event handler", () => {
       <ChessBoard
         gameId=""
         gameData={{
+          gameStatus: "started",
           playerSide: "white",
           currentSide: "white",
           aiStrength: 1,
@@ -90,6 +91,7 @@ describe("onPieceDragBegin event handler", () => {
       <ChessBoard
         gameId=""
         gameData={{
+          gameStatus: "started",
           playerSide: "white",
           currentSide: "white",
           aiStrength: 1,
@@ -131,6 +133,7 @@ describe("onPieceDrop event handler", () => {
       <ChessBoard
         gameId=""
         gameData={{
+          gameStatus: "started",
           playerSide: "white",
           currentSide: "white",
           aiStrength: 1,
@@ -175,6 +178,7 @@ describe("onPromotionCheck event handler", () => {
       <ChessBoard
         gameId=""
         gameData={{
+          gameStatus: "started",
           playerSide: "white",
           currentSide: "white",
           aiStrength: 1,
@@ -223,6 +227,7 @@ describe("onPromotionPieceSelect event handler", () => {
       <ChessBoard
         gameId=""
         gameData={{
+          gameStatus: "started",
           playerSide: "white",
           currentSide: "white",
           aiStrength: 1,
@@ -276,6 +281,7 @@ describe("onSquareClick, onPieceDragBegin, onPieceDrop event handlers. When play
       <ChessBoard
         gameId=""
         gameData={{
+          gameStatus: "started",
           playerSide: "white",
           currentSide: "black",
           aiStrength: 1,
@@ -298,6 +304,7 @@ describe("onSquareClick, onPieceDragBegin, onPieceDrop event handlers. When play
       <ChessBoard
         gameId=""
         gameData={{
+          gameStatus: "started",
           playerSide: "white",
           currentSide: "black",
           aiStrength: 1,
@@ -321,6 +328,7 @@ describe("onSquareClick, onPieceDragBegin, onPieceDrop event handlers. When play
       <ChessBoard
         gameId=""
         gameData={{
+          gameStatus: "started",
           playerSide: "white",
           currentSide: "black",
           aiStrength: 1,

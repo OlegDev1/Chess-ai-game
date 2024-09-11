@@ -1,3 +1,5 @@
+import { GameStatus } from "./GameStatus.types";
+
 interface GameDataResponse {
   type: "gameFull";
   id: string;
@@ -16,7 +18,8 @@ interface GameStateResponse {
   btime: number;
   wtime: number;
   moves: string;
-  status: string;
+  status: GameStatus;
+  winner?: "black" | "white";
 }
 
 export type StreamResponseType = GameDataResponse | GameStateResponse;

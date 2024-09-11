@@ -73,8 +73,8 @@ export default function useStreamGame({
 
     const onMessage = (response: StreamResponseType) => {
       const chess = new Chess();
+      const gameStateObj = response.type == "gameFull" ? response.state : response;
       const moves = response.type == "gameFull" ? response.state.moves : response.moves;
-      const time = response.type == "gameFull" ? response.state : response;
       const currentSide =
         moves.split(" ").filter((e) => e !== "").length % 2 == 0 ? "white" : "black";
 
@@ -136,16 +136,25 @@ export default function useStreamGame({
       }
 
       //Updates the time left
-      if (time.wtime > 10_800_000) {
+      if (gameStateObj.wtime > 10_800_000) {
         //unlimited time, because the maximum for limited is 10,800,000 milliseconds
         setTime((timeObj) => ({ ...timeObj, white: "unlimited", black: "unlimited" }));
       } else {
         //limited time
-        setTime((timeObj) => ({ ...timeObj, white: time.wtime, black: time.btime }));
+        setTime((timeObj) => ({
+          ...timeObj,
+          white: gameStateObj.wtime,
+          black: gameStateObj.btime
+        }));
       }
 
-      //Updates the current side
-      setGameData((data) => ({ ...data, currentSide: currentSide }));
+      //Updates the current side, game status and the winner if any
+      setGameData((data) => ({
+        ...data,
+        currentSide: currentSide,
+        gameStatus: gameStateObj.status,
+        winner: gameStateObj.winner
+      }));
 
       //Updates the chessboard
       setChessBoardFEN(chess.fen());
