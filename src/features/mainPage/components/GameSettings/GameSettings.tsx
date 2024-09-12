@@ -1,10 +1,8 @@
 import { useState } from "react";
-import { GameMode } from "../../types/gameMode.types";
 import { GameTimeMode } from "../../types/gameTimeMode.types";
 import { Strength } from "../../types/strength.types";
 import { Side } from "../../types/side.types";
 import TimePicker from "../TimePicker/TimePicker";
-import ModePicker from "../ModePicker/ModePicker";
 import StrengthPicker from "../StrengthPicker/StrengthPicker";
 import SidePicker from "../SidePicker/SidePicker";
 import "./GameSettings.css";
@@ -14,7 +12,6 @@ import { CreateGameResponse } from "../../types/createGameResponse.types";
 import { AxiosResponse } from "axios";
 
 export default function GameSettings() {
-  const [gameMode, setGameMode] = useState<GameMode>("ai");
   const [gameTimeMode, setGameTimeMode] = useState<GameTimeMode>("limited");
   const [limitedGameMinutes, setLimitedGameMinutes] = useState(15);
   const [strength, setStrength] = useState<Strength>(1);
@@ -22,8 +19,6 @@ export default function GameSettings() {
   const navigate = useNavigate();
 
   async function handleStartGame() {
-    if (gameMode === "friend") return;
-
     const res: AxiosResponse<CreateGameResponse> = await apiPostRequest(
       "/api/challenge/ai",
       new URLSearchParams({
@@ -41,14 +36,13 @@ export default function GameSettings() {
 
   return (
     <div className="home-section__settings">
-      <ModePicker gameMode={gameMode} setGameMode={setGameMode} />
       <TimePicker
         gameTimeMode={gameTimeMode}
         setGameTimeMode={setGameTimeMode}
         limitedGameMinutes={limitedGameMinutes}
         setLimitedGameMinutes={setLimitedGameMinutes}
       />
-      {gameMode === "ai" && <StrengthPicker strength={strength} setStrength={setStrength} />}
+      <StrengthPicker strength={strength} setStrength={setStrength} />
       <SidePicker side={side} setSide={setSide} />
 
       <div className="settings__start-game">
