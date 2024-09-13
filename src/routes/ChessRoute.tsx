@@ -1,12 +1,13 @@
-import ChessBoard from "@features/chessPage/components/ChessBoard/ChessBoard";
-import Moves from "@features/chessPage/components/Moves/Moves";
-import Timer from "@features/chessPage/components/Timer/Timer";
-import Modal from "@features/chessPage/components/Modal/Modal";
-import { TimeType } from "@features/chessPage/types/TimeType.types";
-import { GameDataType } from "@features/chessPage/types/GameDataType.types";
+import ChessBoard from "@pages/chessPage/components/ChessBoard/ChessBoard";
+import Moves from "@pages/chessPage/components/Moves/Moves";
+import Timer from "@pages/chessPage/components/Timer/Timer";
+import Modal from "@pages/chessPage/components/Modal/Modal";
+import { TimeType } from "@pages/chessPage/types/TimeType.types";
+import { GameDataType } from "@pages/chessPage/types/GameDataType.types";
 import { useParams, useNavigate } from "react-router-dom";
 import "./ChessRoute.css";
 import { useState } from "react";
+import { APP_HOME_PATH } from "../app.constants.ts";
 
 export default function ChessRoute() {
   const [moves, setMoves] = useState("");
@@ -22,7 +23,7 @@ export default function ChessRoute() {
   const navigate = useNavigate();
 
   if (!gameId) {
-    navigate("/");
+    navigate(APP_HOME_PATH);
     return;
   }
 
