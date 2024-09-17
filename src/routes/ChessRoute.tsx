@@ -32,7 +32,6 @@ export default function ChessRoute() {
       <Modal gameData={gameData} setGameData={setGameData} />
 
       <section className="chessboard-content">
-        <Timer time={time} moves={moves} gameData={gameData} />
         <ChessBoard
           gameId={gameId}
           gameData={gameData}
@@ -41,6 +40,7 @@ export default function ChessRoute() {
           setGameData={setGameData}
         />
         <Moves moves={moves} setGameData={setGameData} />
+        <Timer time={time} moves={moves} gameData={gameData} />
       </section>
     </div>
   );

@@ -1,11 +1,19 @@
 .settings__sides {
   padding: 1.5rem 1rem;
   grid-row: 4 / 5;
+}
+.settings__sides-list {
   display: flex;
   gap: 4px;
   height: 48px;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
 }
 .settings__side {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transition: all 0.3s;
   border: none;
   background-color: var(--yellowButtonBackground);
@@ -13,7 +21,7 @@
   cursor: pointer;
   flex: 1;
 }
-.settings__side.selected {
+.settings__side[aria-checked="true"] {
   transition: all 0.3s;
   background-color: #ffffff;
 }

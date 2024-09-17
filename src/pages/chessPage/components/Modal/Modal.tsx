@@ -29,11 +29,15 @@ export default function Modal({ gameData, setGameData }: ModalProps) {
         if (e.target === e.currentTarget) setGameData((data) => ({ ...data, isModalClosed: true }));
       }}
       data-testid="chessboardModalBackground">
-      <div className="modal fade-in-scale" data-testid="chessboardModal">
+      <div
+        className="modal fade-in-scale"
+        aria-label="End game modal"
+        data-testid="chessboardModal">
         <button
           className="modal-close-button"
           onClick={() => setGameData((data) => ({ ...data, isModalClosed: true }))}
-          data-testid="modalCloseButton">
+          data-testid="modalCloseButton"
+          aria-label="Close">
           <CloseSVG />
         </button>
 

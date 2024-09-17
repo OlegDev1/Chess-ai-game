@@ -12,9 +12,9 @@ test.each(strengthVariants)("Strength %i is selected", (strength) => {
     const button = screen.getByTestId("strengthPicker").children[i - 1];
 
     if (i === strength) {
-      expect(button.className).toContain("selected");
+      expect(button).toHaveAttribute("aria-checked", "true");
     } else {
-      expect(button.className).not.toContain("selected");
+      expect(button).toHaveAttribute("aria-checked", "false");
     }
   }
 });

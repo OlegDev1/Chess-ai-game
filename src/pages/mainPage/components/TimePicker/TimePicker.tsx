@@ -17,31 +17,44 @@ export default function TimePicker({
   setLimitedGameMinutes
 }: TimePickerProps) {
   return (
-    <div className="settings__time">
-      <h3 className="settings__time-title">Game time</h3>
-      <div className="settings__time-buttons">
-        <button
-          className={`settings__time-button ${gameTimeMode === "unlimited" ? "selected" : ""}`}
-          data-testid="unlimitedTime-button"
-          onClick={() => setGameTimeMode("unlimited")}>
+    <section className="settings__time" aria-labelledby="settings__time-title">
+      <h2 className="settings__time-title" id="settings__time-title">
+        Game time
+      </h2>
+      <ul className="settings__time-buttons" role="radiogroup">
+        <li
+          className="settings__time-button"
+          role="radio"
+          aria-checked={gameTimeMode === "unlimited" ? "true" : "false"}
+          tabIndex={0}
+          onKeyDown={(e) => e.key === "Enter" && setGameTimeMode("unlimited")}
+          onClick={() => setGameTimeMode("unlimited")}
+          data-testid="unlimitedTime-button">
           Unlimited
-        </button>
-        <button
-          className={`settings__time-button ${gameTimeMode === "limited" ? "selected" : ""}`}
-          data-testid="limitedTime-button"
-          onClick={() => setGameTimeMode("limited")}>
+        </li>
+        <li
+          className="settings__time-button"
+          role="radio"
+          aria-checked={gameTimeMode === "limited" ? "true" : "false"}
+          tabIndex={0}
+          onKeyDown={(e) => e.key === "Enter" && setGameTimeMode("limited")}
+          onClick={() => setGameTimeMode("limited")}
+          data-testid="limitedTime-button">
           Limited
-        </button>
-      </div>
+        </li>
+      </ul>
       {gameTimeMode === "limited" && (
         <div className="settings__time-limit-select">
           <Slider
             limitedGameMinutes={limitedGameMinutes}
             setLimitedGameMinutes={setLimitedGameMinutes}
           />
-          <TimeVariants setLimitedGameMinutes={setLimitedGameMinutes} />
+          <TimeVariants
+            limitedGameMinutes={limitedGameMinutes}
+            setLimitedGameMinutes={setLimitedGameMinutes}
+          />
         </div>
       )}
-    </div>
+    </section>
   );
 }

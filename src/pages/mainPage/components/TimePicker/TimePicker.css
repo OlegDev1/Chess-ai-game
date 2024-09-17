@@ -11,11 +11,17 @@
   margin: 0;
 }
 .settings__time-buttons {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
   height: 40px;
   display: flex;
   gap: 4px;
 }
 .settings__time-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transition: all 0.3s;
   font-size: 14px;
   font-weight: 500;
@@ -25,7 +31,7 @@
   background-color: var(--yellowButtonBackground);
   cursor: pointer;
 }
-.settings__time-button.selected {
+.settings__time-button[aria-checked="true"] {
   transition: all 0.3s;
   background-color: #ffffff;
 }

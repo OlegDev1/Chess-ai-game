@@ -26,17 +26,22 @@ function checkTimerDisplay(props: checkTimerDisplayProps) {
   }
 }
 function checkTimerSelected(side: "white" | "black") {
-  if (side === "white") {
-    expect(screen.getByTestId("timerName-white")).toHaveClass("selected");
-    expect(screen.getByTestId("timerTime-white")).toHaveClass("selected");
-    expect(screen.getByTestId("timerName-black")).not.toHaveClass("selected");
-    expect(screen.getByTestId("timerTime-black")).not.toHaveClass("selected");
-  } else {
-    expect(screen.getByTestId("timerName-white")).not.toHaveClass("selected");
-    expect(screen.getByTestId("timerTime-white")).not.toHaveClass("selected");
-    expect(screen.getByTestId("timerName-black")).toHaveClass("selected");
-    expect(screen.getByTestId("timerTime-black")).toHaveClass("selected");
-  }
+  expect(screen.getByTestId("timerName-white")).toHaveAttribute(
+    "aria-checked",
+    side === "white" ? "true" : "false"
+  );
+  expect(screen.getByTestId("timerTime-white")).toHaveAttribute(
+    "aria-checked",
+    side === "white" ? "true" : "false"
+  );
+  expect(screen.getByTestId("timerName-black")).toHaveAttribute(
+    "aria-checked",
+    side === "black" ? "true" : "false"
+  );
+  expect(screen.getByTestId("timerTime-black")).toHaveAttribute(
+    "aria-checked",
+    side === "black" ? "true" : "false"
+  );
 }
 
 it("Default values", () => {

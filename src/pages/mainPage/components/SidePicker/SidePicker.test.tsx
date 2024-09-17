@@ -23,9 +23,9 @@ it("White side is selected", () => {
     setSide: jest.fn()
   });
 
-  expect(whiteSideButton.className).toContain("selected");
-  expect(randomSideButton.className).not.toContain("selected");
-  expect(blackSideButton.className).not.toContain("selected");
+  expect(whiteSideButton).toHaveAttribute("aria-checked", "true");
+  expect(randomSideButton).toHaveAttribute("aria-checked", "false");
+  expect(blackSideButton).toHaveAttribute("aria-checked", "false");
 });
 
 it("Random side is selected", () => {
@@ -34,9 +34,9 @@ it("Random side is selected", () => {
     setSide: jest.fn()
   });
 
-  expect(whiteSideButton.className).not.toContain("selected");
-  expect(randomSideButton.className).toContain("selected");
-  expect(blackSideButton.className).not.toContain("selected");
+  expect(whiteSideButton).toHaveAttribute("aria-checked", "false");
+  expect(randomSideButton).toHaveAttribute("aria-checked", "true");
+  expect(blackSideButton).toHaveAttribute("aria-checked", "false");
 });
 
 it("Black side is selected", () => {
@@ -45,9 +45,9 @@ it("Black side is selected", () => {
     setSide: jest.fn()
   });
 
-  expect(whiteSideButton.className).not.toContain("selected");
-  expect(randomSideButton.className).not.toContain("selected");
-  expect(blackSideButton.className).toContain("selected");
+  expect(whiteSideButton).toHaveAttribute("aria-checked", "false");
+  expect(randomSideButton).toHaveAttribute("aria-checked", "false");
+  expect(blackSideButton).toHaveAttribute("aria-checked", "true");
 });
 
 it("Buttons set the side", async () => {

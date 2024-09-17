@@ -46,14 +46,14 @@ export default function GameSettings() {
       <StrengthPicker strength={strength} setStrength={setStrength} />
       <SidePicker side={side} setSide={setSide} />
 
-      <div className="settings__start-game">
+      <section className="settings__start-game">
         <button
           className="settings__start-game-button"
           data-testid="startGame-button"
           onClick={handleStartGame}>
           Start Game
         </button>
-      </div>
+      </section>
     </div>
   );
 }

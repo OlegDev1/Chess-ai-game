@@ -10,18 +10,24 @@ export default function StrengthPicker({ strength, setStrength }: StrengthPicker
   const strengthVariants: Strength[] = [1, 2, 3, 4, 5, 6, 7, 8];
 
   return (
-    <div className="settings__strength">
-      <h3 className="settings__strength-title">Strength</h3>
-      <div className="settings__strength-variants" data-testid="strengthPicker">
-        {strengthVariants.map((e) => (
-          <button
-            className={`settings__strength-variant ${e == strength ? "selected" : ""}`}
-            onClick={() => setStrength(e)}
-            key={e}>
-            {e}
-          </button>
+    <section className="settings__strength" aria-labelledby="settings__strength-title">
+      <h2 className="settings__strength-title" id="settings__strength-title">
+        Strength
+      </h2>
+      <ul className="settings__strength-variants" role="radiogroup" data-testid="strengthPicker">
+        {strengthVariants.map((strengthVariant) => (
+          <li
+            className="settings__strength-variant"
+            role="radio"
+            aria-checked={strengthVariant === strength ? "true" : "false"}
+            tabIndex={0}
+            onKeyDown={(e) => e.key === "Enter" && setStrength(strengthVariant)}
+            onClick={() => setStrength(strengthVariant)}
+            key={strengthVariant}>
+            {strengthVariant}
+          </li>
         ))}
-      </div>
-    </div>
+      </ul>
+    </section>
   );
 }

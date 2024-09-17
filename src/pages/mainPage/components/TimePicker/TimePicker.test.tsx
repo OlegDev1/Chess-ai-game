@@ -29,8 +29,8 @@ it("Unlimited time is selected", () => {
     setGameTimeMode: jest.fn()
   });
 
-  expect(unlimitedTimeButton.className).toContain("selected");
-  expect(limitedTimeButton.className).not.toContain("selected");
+  expect(unlimitedTimeButton).toHaveAttribute("aria-checked", "true");
+  expect(limitedTimeButton).toHaveAttribute("aria-checked", "false");
 });
 
 it("Limited time is selected", () => {
@@ -39,8 +39,8 @@ it("Limited time is selected", () => {
     setGameTimeMode: jest.fn()
   });
 
-  expect(unlimitedTimeButton.className).not.toContain("selected");
-  expect(limitedTimeButton.className).toContain("selected");
+  expect(unlimitedTimeButton).toHaveAttribute("aria-checked", "false");
+  expect(limitedTimeButton).toHaveAttribute("aria-checked", "true");
 
   expect(screen.getByTestId("timePicker")).toBeInTheDocument();
   expect(screen.getByTestId("slider")).toBeInTheDocument();

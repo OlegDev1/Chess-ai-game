@@ -31,6 +31,7 @@ export default function Moves({ moves, setGameData }: MovesProps) {
     <div className="chessboard-moves">
       <button
         className="chessboard-moves__change-side-button"
+        aria-label="Flip Chess Board"
         onClick={() =>
           setGameData((data) => ({
             ...data,
@@ -39,7 +40,11 @@ export default function Moves({ moves, setGameData }: MovesProps) {
         }>
         <FlipSVG />
       </button>
-      <ol className="chessboard-moves-list" ref={movesListRef} data-testid="movesList">
+      <ol
+        className="chessboard-moves-list"
+        aria-label="Chess Board moves"
+        ref={movesListRef}
+        data-testid="movesList">
         {chessMoves &&
           _.chunk(chessMoves, 2).map((movePair, i) => {
             const firstPieceIcon = pieceMap[movePair[0].piece] || null;

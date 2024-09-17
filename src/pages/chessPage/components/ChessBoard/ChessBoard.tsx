@@ -212,7 +212,7 @@ export default function ChessBoard({
 
   if (!chessBoardFEN) return <></>;
   return (
-    <div className="chessboard">
+    <div className="chessboard" aria-label="Chess Board">
       <Chessboard
         position={chessBoardFEN}
         onSquareClick={handleSquareClick}

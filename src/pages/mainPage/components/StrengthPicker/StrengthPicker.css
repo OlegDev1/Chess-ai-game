@@ -13,8 +13,14 @@
 .settings__strength-variants {
   display: flex;
   gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
 }
 .settings__strength-variant {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 14px;
   font-weight: 500;
   transition: all 0.1s;
@@ -25,8 +31,8 @@
   border: none;
   cursor: pointer;
 }
-.settings__strength-variant.selected,
-.settings__strength-variant.selected:hover {
+.settings__strength-variant[aria-checked="true"],
+.settings__strength-variant[aria-checked="true"]:hover {
   background-color: #ffffff;
 }
 .settings__strength-variant:hover {
