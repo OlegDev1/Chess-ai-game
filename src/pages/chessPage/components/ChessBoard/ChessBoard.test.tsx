@@ -57,19 +57,19 @@ describe("onSquareClick event handler", () => {
     jest.clearAllMocks();
   });
 
-  it("Returns true when there are possible moves from the given position", () => {
-    //a2 does have possible moves on starting position
+  it("there are possible moves from the given position", () => {
+    //a2 have possible moves on starting position
     expect(func("a2")).toBe(true);
   });
-  it("Returns false when there are no possible moves from the given position", () => {
+  it("there are no possible moves from the given position", () => {
     //a1 does not have possible moves on starting position
     expect(func("a1")).toBe(false);
   });
-  it("Returns true when the possible move leads to a move", () => {
+  it("possible move leads to a move", () => {
     //move from b2 to b3 is possible
     expect(func("b3")).toBe(true);
   });
-  it("Returns false when the possible move leads to an error", () => {
+  it("possible move leads to an error", () => {
     /* move from b2 to b5 is not possible,
     the possibleMoves state is incorrect intentionally for this test */
     expect(func("b5")).toBe(false);
@@ -108,11 +108,11 @@ describe("onPieceDragBegin event handler", () => {
     jest.clearAllMocks();
   });
 
-  it("Returns true when there are possible moves from the given position (a2)", () => {
-    //a2 does have possible moves on starting position
+  it("there are possible moves from the given position", () => {
+    //a2 have possible moves on starting position
     expect(func("wP", "a2")).toBe(true);
   });
-  it("Returns false when there are no possible moves from the given position (a1)", () => {
+  it("there are no possible moves from the given position", () => {
     //a1 does not have possible moves on starting position
     expect(func("wR", "a1")).toBe(false);
   });
@@ -150,11 +150,11 @@ describe("onPieceDrop event handler", () => {
     jest.clearAllMocks();
   });
 
-  it("Returns true when the move is successful", () => {
+  it("move is successful", () => {
     //move from a2 to a3 is possible
     expect(func("a2", "a3")).toBe(true);
   });
-  it("Returns false when the move is unsuccessful", () => {
+  it("move is unsuccessful", () => {
     //move from a2 to a5 is not possible
     expect(func("a2", "a5")).toBe(false);
   });
@@ -195,11 +195,11 @@ describe("onPromotionCheck event handler", () => {
     jest.clearAllMocks();
   });
 
-  it("Returns true when the promotion is possible", () => {
+  it("promotion is possible", () => {
     //promotion of a pawn from b7 to c8 is possible
     expect(func("b7", "c8")).toBe(true);
   });
-  it("Returns false when the promotion is not possible", () => {
+  it("promotion is not possible", () => {
     //promotion of a pawn from b7 to d8 is not possible
     expect(func("b7", "d8")).toBe(false);
   });
@@ -244,17 +244,17 @@ describe("onPromotionPieceSelect event handler", () => {
     jest.clearAllMocks();
   });
 
-  it("Returns true when the promotion move is successful", () => {
+  it("promotion move is successful", () => {
     /* Promotion of a pawn to a queen from b7 to c8,
     it is possible with a given chessBoardFEN*/
     expect(func("wQ", "b7", "c8")).toBe(true);
   });
-  it("Returns false when the promotion move is unsuccessful", () => {
+  it("promotion move is unsuccessful", () => {
     /* Promotion of a pawn to a queen from b7 to d8,
     it is not possible with a given chessBoardFEN*/
     expect(func("wQ", "b7", "d8")).toBe(false);
   });
-  it("Returns false if any argument is missing", () => {
+  it("any argument is missing", () => {
     expect(func(undefined, undefined, undefined)).toBe(false);
     expect(func("wQ", undefined, undefined)).toBe(false);
     expect(func("wQ", "b7", undefined)).toBe(false);
@@ -263,7 +263,7 @@ describe("onPromotionPieceSelect event handler", () => {
   });
 });
 
-describe("onSquareClick, onPieceDragBegin, onPieceDrop event handlers. When playerSide != currentSide", () => {
+describe("onSquareClick, onPieceDragBegin, onPieceDrop event handlers. When playerSide is not equal to currentSide", () => {
   beforeEach(() => {
     jest
       .spyOn(React, "useState")
@@ -276,7 +276,7 @@ describe("onSquareClick, onPieceDragBegin, onPieceDrop event handlers. When play
     jest.clearAllMocks();
   });
 
-  it("onSquareClick, returns false when playerSide != currentSide", () => {
+  it("onSquareClick, there are no possible moves, because it's not the player's turn", () => {
     render(
       <ChessBoard
         gameId=""
@@ -299,7 +299,7 @@ describe("onSquareClick, onPieceDragBegin, onPieceDrop event handlers. When play
     expect(func("a2")).toBe(false);
   });
 
-  it("onPieceDragBegin, returns false when playerSide != currentSide", () => {
+  it("onPieceDragBegin, there are no possible moves, because it's not the player's turn", () => {
     render(
       <ChessBoard
         gameId=""
@@ -323,7 +323,7 @@ describe("onSquareClick, onPieceDragBegin, onPieceDrop event handlers. When play
     expect(func("wP", "a2")).toBe(false);
   });
 
-  it("onPieceDrop, returns false when playerSide != currentSide", () => {
+  it("onPieceDrop, there are no possible moves, because it's not the player's turn", () => {
     render(
       <ChessBoard
         gameId=""

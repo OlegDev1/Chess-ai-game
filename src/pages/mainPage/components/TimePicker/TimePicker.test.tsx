@@ -23,30 +23,32 @@ function setup({ gameTimeMode, setGameTimeMode }: setupProps) {
   return { unlimitedTimeButton, limitedTimeButton };
 }
 
-it("Unlimited time is selected", () => {
-  const { unlimitedTimeButton, limitedTimeButton } = setup({
-    gameTimeMode: "unlimited",
-    setGameTimeMode: jest.fn()
+describe("time mode display", () => {
+  it("highlights unlimited time, when it is selected", () => {
+    const { unlimitedTimeButton, limitedTimeButton } = setup({
+      gameTimeMode: "unlimited",
+      setGameTimeMode: jest.fn()
+    });
+
+    expect(unlimitedTimeButton).toHaveAttribute("aria-checked", "true");
+    expect(limitedTimeButton).toHaveAttribute("aria-checked", "false");
   });
 
-  expect(unlimitedTimeButton).toHaveAttribute("aria-checked", "true");
-  expect(limitedTimeButton).toHaveAttribute("aria-checked", "false");
-});
+  it("highlights limited time, when it is selected", () => {
+    const { unlimitedTimeButton, limitedTimeButton } = setup({
+      gameTimeMode: "limited",
+      setGameTimeMode: jest.fn()
+    });
 
-it("Limited time is selected", () => {
-  const { unlimitedTimeButton, limitedTimeButton } = setup({
-    gameTimeMode: "limited",
-    setGameTimeMode: jest.fn()
+    expect(unlimitedTimeButton).toHaveAttribute("aria-checked", "false");
+    expect(limitedTimeButton).toHaveAttribute("aria-checked", "true");
+
+    expect(screen.getByTestId("timePicker")).toBeInTheDocument();
+    expect(screen.getByTestId("slider")).toBeInTheDocument();
   });
-
-  expect(unlimitedTimeButton).toHaveAttribute("aria-checked", "false");
-  expect(limitedTimeButton).toHaveAttribute("aria-checked", "true");
-
-  expect(screen.getByTestId("timePicker")).toBeInTheDocument();
-  expect(screen.getByTestId("slider")).toBeInTheDocument();
 });
 
-it("Buttons set the time mode", async () => {
+it("sets the time mode", async () => {
   const mockSetGameTimeMode = jest.fn();
   const { unlimitedTimeButton, limitedTimeButton } = setup({
     gameTimeMode: "limited",

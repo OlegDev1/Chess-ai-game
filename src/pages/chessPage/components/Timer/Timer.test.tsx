@@ -44,7 +44,7 @@ function checkTimerSelected(side: "white" | "black") {
   );
 }
 
-it("Default values", () => {
+it("rendering with default values", () => {
   render(
     <Timer
       time={{ white: 0, black: 0 }}
@@ -70,7 +70,7 @@ it("Default values", () => {
   checkTimerSelected("white");
 });
 
-it("Player (white) has 32 seconds. Bot level 5 (black, current) has 11 minutes and 12 seconds", () => {
+it("rendering when white player has 32 seconds, black bot has 11 minutes and 12 seconds", () => {
   render(
     <Timer
       time={{ white: 32 * 1000, black: (60 * 11 + 12) * 1000 }}
@@ -96,7 +96,7 @@ it("Player (white) has 32 seconds. Bot level 5 (black, current) has 11 minutes a
   checkTimerSelected("black");
 });
 
-it("Player (white, current) has 40 seconds. Bot level 1 (black) has 2 minutes", () => {
+it("rendering when white player has 40 seconds, white bot has 2 minutes", () => {
   render(
     <Timer
       time={{ white: 40 * 1000, black: 60 * 2 * 1000 }}
@@ -122,7 +122,7 @@ it("Player (white, current) has 40 seconds. Bot level 1 (black) has 2 minutes", 
   checkTimerSelected("white");
 });
 
-it("Player (black) has 0 seconds. Bot level 2 (white, current) has 0 seconds", () => {
+it("rendering when black player has 0 seconds, white bot has 0 seconds", () => {
   render(
     <Timer
       time={{ white: 0, black: 0 }}
@@ -148,7 +148,7 @@ it("Player (black) has 0 seconds. Bot level 2 (white, current) has 0 seconds", (
   checkTimerSelected("white");
 });
 
-it("Player (black, current) has 2 minutes and 28 seconds. Bot level 8 (white) has 10 minutes and 9 seconds. There is one move", () => {
+it("rendering when black player has 2 minutes and 28 seconds, white bot has 10 minutes and 9 seconds, there is a move", () => {
   render(
     <Timer
       time={{ white: (60 * 10 + 9) * 1000, black: (60 * 2 + 28) * 1000 }}
@@ -174,7 +174,7 @@ it("Player (black, current) has 2 minutes and 28 seconds. Bot level 8 (white) ha
   checkTimerSelected("black");
 });
 
-it("Player (white, current) has unlimited time. Bot level 1 (black) has unlimited time", () => {
+it("rendering when white player has unlimited time, black bot has unlimited time", () => {
   render(
     <Timer
       time={{ white: "unlimited", black: "unlimited" }}
@@ -194,7 +194,7 @@ it("Player (white, current) has unlimited time. Bot level 1 (black) has unlimite
   checkTimerSelected("white");
 });
 
-it("Player (black) has unlimited time. Bot level 1 (white, current) has unlimited time", () => {
+it("rendering when black player has unlimited time, white bot has unlimited time", () => {
   render(
     <Timer
       time={{ white: "unlimited", black: "unlimited" }}
@@ -214,7 +214,7 @@ it("Player (black) has unlimited time. Bot level 1 (white, current) has unlimite
   checkTimerSelected("white");
 });
 
-it("White timer at the bottom and black at the top, when the board orientation is white", () => {
+it("rendering white timer at the bottom and black at the top, when the board orientation is white", () => {
   render(
     <Timer
       time={{ white: 0, black: 0 }}
@@ -236,7 +236,7 @@ it("White timer at the bottom and black at the top, when the board orientation i
   expect(blackTimer.className).toContain("top");
 });
 
-it("White timer at the top and black at the bottom, when the board orientation is black", () => {
+it("rendering white timer at the top and black at the bottom, when the board orientation is black", () => {
   render(
     <Timer
       time={{ white: 0, black: 0 }}

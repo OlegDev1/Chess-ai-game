@@ -17,7 +17,7 @@ beforeEach(() => {
   render(<GameSettings />);
 });
 
-it("Start a game with default options", async () => {
+it("starts a game with default options", async () => {
   await userEvent.click(screen.getByTestId("startGame-button"));
 
   expect(mockApiPostRequest).toHaveBeenCalledTimes(1);
@@ -36,7 +36,7 @@ it("Start a game with default options", async () => {
   expect(mockRouterNavigate).toHaveBeenCalledWith(APP_PLAY_PATH({ gameId: "2" }));
 });
 
-it("Start a game with unlimited time", async () => {
+it("starts a game with unlimited time", async () => {
   await userEvent.click(screen.getByTestId("unlimitedTime-button"));
   await userEvent.click(screen.getByTestId("startGame-button"));
 

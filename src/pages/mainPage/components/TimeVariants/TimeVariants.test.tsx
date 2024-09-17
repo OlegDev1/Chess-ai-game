@@ -4,7 +4,7 @@ import { render, screen } from "@testing-library/react";
 
 const timeVariants = [10, 15, 20, 25, 30, 40, 50, 60, 70, 85];
 
-test.each(timeVariants)("Time variant %i is selected", (timeVariant) => {
+test.each(timeVariants)("highlights time variant %i, when it is selected", (timeVariant) => {
   render(<TimeVariants limitedGameMinutes={timeVariant} setLimitedGameMinutes={jest.fn()} />);
 
   for (let i = 0; i < timeVariants.length; i++) {
@@ -19,7 +19,7 @@ test.each(timeVariants)("Time variant %i is selected", (timeVariant) => {
   }
 });
 
-it("Buttons set the limited time", async () => {
+it("sets the limited time", async () => {
   const mockSetLimitedGameMinutes = jest.fn();
 
   render(

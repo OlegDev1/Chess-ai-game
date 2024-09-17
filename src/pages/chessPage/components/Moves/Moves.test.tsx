@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import Moves from "./Moves";
 
-it("First move with a pawn", () => {
+it("displays a pawn in the first move", () => {
   render(<Moves setGameData={jest.fn()} moves="e2e3" />);
   const listElement = screen.getByTestId("movesList").children[0];
   const index = listElement.children[0];
@@ -10,7 +10,7 @@ it("First move with a pawn", () => {
   expect(move).toHaveTextContent("e3");
 });
 
-it("Second move with a pawn", () => {
+it("displays a pawn in the second move", () => {
   render(<Moves setGameData={jest.fn()} moves="e2e3 e7e6" />);
   const listElement = screen.getByTestId("movesList").children[0];
   const index = listElement.children[0];
@@ -19,7 +19,7 @@ it("Second move with a pawn", () => {
   expect(move).toHaveTextContent("e6");
 });
 
-it("A move with a knight", () => {
+it("displays a knight in the last move", () => {
   render(<Moves setGameData={jest.fn()} moves="e2e3 e7e6 b1a3" />);
   const listElement = screen.getByTestId("movesList").children[1];
   const knightSVG = screen.getByTestId("knightSVG");
@@ -30,7 +30,7 @@ it("A move with a knight", () => {
   expect(knightSVG).toBeInTheDocument();
 });
 
-it("A move with a queen", () => {
+it("displays a queen in the last move", () => {
   render(<Moves setGameData={jest.fn()} moves="e2e3 e7e6 d1e2" />);
   const listElement = screen.getByTestId("movesList").children[1];
   const queenSVG = screen.getByTestId("queenSVG");
@@ -41,7 +41,7 @@ it("A move with a queen", () => {
   expect(queenSVG).toBeInTheDocument();
 });
 
-it("A move with a king", () => {
+it("displays a king in the last move", () => {
   render(<Moves setGameData={jest.fn()} moves="e2e3 e7e6 e1e2" />);
   const listElement = screen.getByTestId("movesList").children[1];
   const kingSVG = screen.getByTestId("kingSVG");
@@ -52,7 +52,7 @@ it("A move with a king", () => {
   expect(kingSVG).toBeInTheDocument();
 });
 
-it("A move with a rook", () => {
+it("displays a rook in the last move", () => {
   render(<Moves setGameData={jest.fn()} moves="e2e3 e7e6 a2a3 e6e5 a1a2" />);
   const listElement = screen.getByTestId("movesList").children[2];
   const rookSVG = screen.getByTestId("rookSVG");
@@ -63,7 +63,7 @@ it("A move with a rook", () => {
   expect(rookSVG).toBeInTheDocument();
 });
 
-it("A move with a bishop", () => {
+it("displays a bishop in the last move", () => {
   render(<Moves setGameData={jest.fn()} moves="b2b3 e7e6 c1b2" />);
   const listElement = screen.getByTestId("movesList").children[1];
   const bishopSVG = screen.getByTestId("bishopSVG");

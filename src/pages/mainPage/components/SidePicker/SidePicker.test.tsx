@@ -17,40 +17,42 @@ function setup({ side, setSide }: setupProps) {
   return { whiteSideButton, randomSideButton, blackSideButton };
 }
 
-it("White side is selected", () => {
-  const { whiteSideButton, randomSideButton, blackSideButton } = setup({
-    side: "white",
-    setSide: jest.fn()
+describe("chosen side display", () => {
+  it("highlights white side, when it is selected", () => {
+    const { whiteSideButton, randomSideButton, blackSideButton } = setup({
+      side: "white",
+      setSide: jest.fn()
+    });
+
+    expect(whiteSideButton).toHaveAttribute("aria-checked", "true");
+    expect(randomSideButton).toHaveAttribute("aria-checked", "false");
+    expect(blackSideButton).toHaveAttribute("aria-checked", "false");
   });
 
-  expect(whiteSideButton).toHaveAttribute("aria-checked", "true");
-  expect(randomSideButton).toHaveAttribute("aria-checked", "false");
-  expect(blackSideButton).toHaveAttribute("aria-checked", "false");
-});
+  it("highlights random side, when it is selected", () => {
+    const { whiteSideButton, randomSideButton, blackSideButton } = setup({
+      side: "random",
+      setSide: jest.fn()
+    });
 
-it("Random side is selected", () => {
-  const { whiteSideButton, randomSideButton, blackSideButton } = setup({
-    side: "random",
-    setSide: jest.fn()
+    expect(whiteSideButton).toHaveAttribute("aria-checked", "false");
+    expect(randomSideButton).toHaveAttribute("aria-checked", "true");
+    expect(blackSideButton).toHaveAttribute("aria-checked", "false");
   });
 
-  expect(whiteSideButton).toHaveAttribute("aria-checked", "false");
-  expect(randomSideButton).toHaveAttribute("aria-checked", "true");
-  expect(blackSideButton).toHaveAttribute("aria-checked", "false");
-});
+  it("highlights black side, when it is selected", () => {
+    const { whiteSideButton, randomSideButton, blackSideButton } = setup({
+      side: "black",
+      setSide: jest.fn()
+    });
 
-it("Black side is selected", () => {
-  const { whiteSideButton, randomSideButton, blackSideButton } = setup({
-    side: "black",
-    setSide: jest.fn()
+    expect(whiteSideButton).toHaveAttribute("aria-checked", "false");
+    expect(randomSideButton).toHaveAttribute("aria-checked", "false");
+    expect(blackSideButton).toHaveAttribute("aria-checked", "true");
   });
-
-  expect(whiteSideButton).toHaveAttribute("aria-checked", "false");
-  expect(randomSideButton).toHaveAttribute("aria-checked", "false");
-  expect(blackSideButton).toHaveAttribute("aria-checked", "true");
 });
 
-it("Buttons set the side", async () => {
+it("sets the side", async () => {
   const mockSetSide = jest.fn();
   const { whiteSideButton, randomSideButton, blackSideButton } = setup({
     side: "white",

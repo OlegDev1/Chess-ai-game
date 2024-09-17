@@ -5,7 +5,7 @@ import { Strength } from "@pages/mainPage/types/Strength.types";
 
 const strengthVariants = [1, 2, 3, 4, 5, 6, 7, 8] as Strength[];
 
-test.each(strengthVariants)("Strength %i is selected", (strength) => {
+test.each(strengthVariants)("highlights strength %i, when it is selected", (strength) => {
   render(<StrengthPicker strength={strength} setStrength={jest.fn()} />);
 
   for (const i of strengthVariants) {
@@ -19,7 +19,7 @@ test.each(strengthVariants)("Strength %i is selected", (strength) => {
   }
 });
 
-it("Buttons set the strength", async () => {
+it("sets the strength", async () => {
   const mockSetStrength = jest.fn();
   render(<StrengthPicker strength={1} setStrength={mockSetStrength} />);
 

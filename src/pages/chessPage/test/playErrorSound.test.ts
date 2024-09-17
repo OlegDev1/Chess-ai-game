@@ -13,14 +13,14 @@ beforeEach(() => {
   jest.clearAllMocks();
 });
 
-it("Play an error sound", async () => {
+it("plays an error sound", async () => {
   await playErrorSound();
 
   expect(mockPlay).toHaveBeenCalledTimes(1);
   expect(consoleSpy).not.toHaveBeenCalled();
 });
 
-it("Handle an error when playing an error sound", async () => {
+it("handles an error when playing an error sound", async () => {
   mockPlay.mockImplementationOnce(() => Promise.reject(new Error("Can not play an error sound")));
 
   await playErrorSound();

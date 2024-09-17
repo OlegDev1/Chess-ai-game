@@ -32,7 +32,7 @@ beforeEach(() => {
   jest.clearAllMocks();
 });
 
-it("Does not play a sound when there are no moves", async () => {
+it("does not play a sound, when there are no moves", async () => {
   const chess = setup({ hasMoves: false, moveIsCapture: false });
 
   await playMoveOrCaptureSound(chess);
@@ -45,8 +45,8 @@ it("Does not play a sound when there are no moves", async () => {
 describe.each([
   ["move", "mockMove.ogg", false],
   ["capture", "mockCapture.ogg", true]
-])("Play sounds and handle errors", (action, movePath, moveIsCapture) => {
-  it(`Play ${action} sound when there is ${action}`, async () => {
+])("play sounds and handle errors", (action, movePath, moveIsCapture) => {
+  it(`plays ${action} sound, when there is ${action}`, async () => {
     const chess = setup({ hasMoves: true, moveIsCapture: moveIsCapture });
 
     await playMoveOrCaptureSound(chess);
@@ -56,7 +56,7 @@ describe.each([
     expect(consoleSpy).not.toHaveBeenCalled();
   });
 
-  it(`Handle an error when playing ${action} sound`, async () => {
+  it(`handles an error, when playing ${action} sound`, async () => {
     const chess = setup({ hasMoves: true, moveIsCapture: moveIsCapture });
     mockPlay.mockImplementationOnce(() =>
       Promise.reject(new Error(`Can not play ${action} sound`))
